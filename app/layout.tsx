@@ -30,7 +30,7 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider attribute="class">
-          <div className="fixed top-8 right-8">
+          <div className="fixed top-4 right-4">
             <ModeToggle />
           </div>
           {children}
