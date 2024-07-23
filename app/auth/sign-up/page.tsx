@@ -69,7 +69,7 @@ const SignUpPage = () => {
         <TypographyH1>Grow together with Betterment Book Club</TypographyH1>
       </div>
 
-      <Card>
+      <Card className={cn("min-w-[40%]")}>
         <CardHeader>
           <CardTitle>Sign up</CardTitle>
           <CardDescription>
