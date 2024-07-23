@@ -47,7 +47,7 @@ const SignInPage = () => {
 
   return (
     <div className="min-h-screen max-w-7xl mx-auto gap-4 flex flex-col md:flex-row justify-center md:justify-evenly md:items-center p-4 md:p-16">
-      <div>
+      <div className="dark:text-shadow">
         <TypographyH1>Check Back in with Betterment Book Club</TypographyH1>
       </div>
 
