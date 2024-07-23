@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import Footer from "@/components/footer";
+import NavBar from "@/components/navbar";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -30,9 +31,7 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider attribute="class">
-          <div className="fixed top-4 right-4">
-            <ModeToggle />
-          </div>
+          <NavBar />
           {children}
           <Footer />
         </ThemeProvider>
