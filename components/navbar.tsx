@@ -19,22 +19,22 @@ const iconStyling = "mr-2 h-4 w-4";
 const navLinks = [
   {
     text: "About",
-    link: "/",
+    link: "/about",
     icon: <Info className={iconStyling} />,
   },
   {
     text: "Articles",
-    link: "/",
+    link: "/articles",
     icon: <Newspaper className={iconStyling} />,
   },
   {
     text: "Plans",
-    link: "/",
+    link: "/plans",
     icon: <ShoppingBag className={iconStyling} />,
   },
   {
     text: "Contact",
-    link: "/",
+    link: "/contact",
     icon: <Mails className={iconStyling} />,
   },
 ];
@@ -42,26 +42,28 @@ const navLinks = [
 const NavBar = () => {
   return (
     <header className="w-screen min-h-12">
-      <div className="mx-auto flex space-between items-center p-4">
+      <div className="mx-auto flex space-between items-center py-4 px-4 md:px-8">
         <div className="flex flex-1 justify-start">
-          <div className="dark:hidden">
-            <Image
-              src="/high-res-logo-transparent.svg"
-              alt="logo"
-              height={24}
-              width={118}
-              className="object-contain"
-            />
-          </div>
-          <div className="hidden dark:block">
-            <Image
-              src="/high-res-logo-white-text-transparent.svg"
-              alt="logo"
-              height={24}
-              width={118}
-              className="object-contain"
-            />
-          </div>
+          <Link href="/landing-page">
+            <div className="dark:hidden">
+              <Image
+                src="/high-res-logo-transparent.svg"
+                alt="logo"
+                height={24}
+                width={118}
+                className="object-contain"
+              />
+            </div>
+            <div className="hidden dark:block">
+              <Image
+                src="/high-res-logo-white-text-transparent.svg"
+                alt="logo"
+                height={24}
+                width={118}
+                className="object-contain"
+              />
+            </div>
+          </Link>
         </div>
         <div className="flex flex-1 justify-center max-md:hidden">
           <ul className="flex gap-4">
@@ -78,8 +80,13 @@ const NavBar = () => {
           </ul>
         </div>
         <div className="max-md:hidden flex gap-4 flex-1 justify-end">
-          <Button>Sign Up</Button>
-          <Button variant="secondary">Sign Up</Button>
+          <Link href="/auth/sign-up">
+            <Button>Sign Up</Button>
+          </Link>
+          <Link href="/auth/sign-in">
+            <Button variant="secondary">Sign In</Button>
+          </Link>
+
           <ModeToggle />
         </div>
         <div className="md:hidden flex gap-2">
