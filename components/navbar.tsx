@@ -1,26 +1,41 @@
 import React from "react";
-import { TypographyH4, TypographyP } from "./typography";
+import { TypographyP } from "./typography";
 import { Button } from "./ui/button";
 import { ModeToggle } from "./ui/mode-toggle";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { Info, Mails, Menu, Newspaper, ShoppingBag } from "lucide-react";
+
+const iconStyling = "mr-2 h-4 w-4";
 
 const navLinks = [
   {
     text: "About",
     link: "/",
+    icon: <Info className={iconStyling} />,
   },
   {
     text: "Articles",
     link: "/",
+    icon: <Newspaper className={iconStyling} />,
   },
   {
-    text: "Pricing",
+    text: "Plans",
     link: "/",
+    icon: <ShoppingBag className={iconStyling} />,
   },
   {
     text: "Contact",
     link: "/",
+    icon: <Mails className={iconStyling} />,
   },
 ];
 
@@ -62,10 +77,45 @@ const NavBar = () => {
             ))}
           </ul>
         </div>
-        <div className="flex gap-4 flex-1 justify-end max-md-hidden">
+        <div className="max-md:hidden flex gap-4 flex-1 justify-end">
           <Button>Sign Up</Button>
           <Button variant="secondary">Sign Up</Button>
           <ModeToggle />
+        </div>
+        <div className="md:hidden flex gap-2">
+          <ModeToggle />
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="p-2">
+                <Menu />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56 mx-4">
+              <DropdownMenuGroup>
+                {navLinks.map((item) => (
+                  <DropdownMenuItem>
+                    <Link href={item.link} className="flex">
+                      {" "}
+                      {item.icon}
+                      <span>{item.text}</span>
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <DropdownMenuItem className="flex-grow">
+                  <Button className="flex-1">Sign Up</Button>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem className="flex-grow">
+                  <Button variant="secondary" className="flex-1">
+                    Sign In
+                  </Button>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
     </header>
