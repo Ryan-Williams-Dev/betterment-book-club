@@ -106,8 +106,8 @@ const NavBar = () => {
             <DropdownMenuContent className="w-56 mx-4">
               <DropdownMenuGroup>
                 {navLinks.map((item) => (
-                  <DropdownMenuItem>
-                    <Link key={item.text} href={item.link} className="flex">
+                  <DropdownMenuItem key={item.text}>
+                    <Link href={item.link} className="flex">
                       {" "}
                       {item.icon}
                       <span>{item.text}</span>
