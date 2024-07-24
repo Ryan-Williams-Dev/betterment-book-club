@@ -41,7 +41,7 @@ const navLinks = [
 
 const NavBar = () => {
   return (
-    <header className="w-screen min-h-12 bg-background fixed">
+    <header className="w-screen min-h-12 fixed top-0 z-50">
       <div className="mx-auto flex space-between items-center py-4 px-4 md:px-8 max-w-[100rem]">
         <div className="flex flex-1 justify-start">
           <Link href="/landing-page">

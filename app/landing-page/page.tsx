@@ -1,8 +1,94 @@
+"use client";
+
+import {
+  TypographyH1,
+  TypographyH3,
+  TypographyLarge,
+} from "@/components/typography";
+import { buttonVariants } from "@/components/ui/button";
+import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
+import { motion } from "framer-motion";
+import Link from "next/link";
 import React from "react";
 
 const LandingPage = () => {
   return (
-    <div className="min-h-screen max-w-7xl mx-auto flex justify-center items-center p-8"></div>
+    <div className="min-h-screen w-screen top-0 mx-auto flex justify-center ">
+      <HeroHighlight>
+        <motion.h1
+          initial={{
+            opacity: 0,
+            y: 20,
+          }}
+          animate={{
+            opacity: 1,
+            y: [20, -5, 0],
+          }}
+          transition={{
+            duration: 0.5,
+            ease: [0.4, 0.0, 0.2, 1],
+          }}
+          className="scroll-m-20 text-6xl font-extrabold tracking-tight  lg:text-8xl text-center py-4 px-6"
+        >
+          {/* Empower Your Mind with Community-Driven Reading */}
+          Read, Learn, Improve.
+          <br />
+          <Highlight className="text-black dark:text-white leading-normal">
+            Together
+          </Highlight>
+        </motion.h1>
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 20,
+          }}
+          animate={{
+            opacity: 1,
+            y: [20, -5, 0],
+          }}
+          transition={{
+            duration: 0.5,
+            ease: [0.4, 0.0, 0.2, 1],
+          }}
+          className="max-w-3xl mx-auto text-center py-4 px-6 text-zinc-800 dark:text-zinc-200"
+        >
+          <TypographyH3>
+            Discover transformative books and engage in enriching conversations
+            to boost your personal growth.
+          </TypographyH3>
+        </motion.div>
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 20,
+          }}
+          animate={{
+            opacity: 1,
+            y: [20, -5, 0],
+          }}
+          transition={{
+            duration: 0.5,
+            ease: [0.4, 0.0, 0.2, 1],
+          }}
+          className="max-w-7xl py-4 px-6 flex justify-center gap-6"
+        >
+          <Link
+            href="/auth/sign-up"
+            className={buttonVariants({ variant: "default" })}
+          >
+            <TypographyLarge>Sign Up</TypographyLarge>
+          </Link>
+          <Link
+            href="/auth/sign-in"
+            className={buttonVariants({ variant: "outline" })}
+          >
+            <TypographyLarge>Sign In</TypographyLarge>
+          </Link>
+        </motion.div>
+      </HeroHighlight>
+    </div>
   );
 };
 
