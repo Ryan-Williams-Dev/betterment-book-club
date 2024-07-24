@@ -1,6 +1,6 @@
 import React from "react";
 import { TypographyP } from "./typography";
-import { Button } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 import { ModeToggle } from "./ui/mode-toggle";
 import Image from "next/image";
 import Link from "next/link";
@@ -41,8 +41,8 @@ const navLinks = [
 
 const NavBar = () => {
   return (
-    <header className="w-screen min-h-12">
-      <div className="mx-auto flex space-between items-center py-4 px-4 md:px-8">
+    <header className="w-screen min-h-12 bg-background fixed">
+      <div className="mx-auto flex space-between items-center py-4 px-4 md:px-8 max-w-[100rem]">
         <div className="flex flex-1 justify-start">
           <Link href="/landing-page">
             <div className="dark:hidden">
@@ -80,11 +80,17 @@ const NavBar = () => {
           </ul>
         </div>
         <div className="max-md:hidden flex gap-4 flex-1 justify-end">
-          <Link href="/auth/sign-up">
-            <Button>Sign Up</Button>
+          <Link
+            href="/auth/sign-up"
+            className={buttonVariants({ variant: "default" })}
+          >
+            Sign Up
           </Link>
-          <Link href="/auth/sign-in">
-            <Button variant="secondary">Sign In</Button>
+          <Link
+            href="/auth/sign-in"
+            className={buttonVariants({ variant: "outline" })}
+          >
+            Sign In
           </Link>
 
           <ModeToggle />
@@ -112,13 +118,25 @@ const NavBar = () => {
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
                 <DropdownMenuItem className="flex-grow">
-                  <Button className="flex-1">Sign Up</Button>
+                  <Link
+                    href="/auth/sign-up"
+                    className={`${buttonVariants({
+                      variant: "default",
+                    })} flex-1`}
+                  >
+                    Sign Up
+                  </Link>
                 </DropdownMenuItem>
 
                 <DropdownMenuItem className="flex-grow">
-                  <Button variant="secondary" className="flex-1">
+                  <Link
+                    href="/auth/sign-in"
+                    className={`${buttonVariants({
+                      variant: "outline",
+                    })} flex-1`}
+                  >
                     Sign In
-                  </Button>
+                  </Link>
                 </DropdownMenuItem>
               </DropdownMenuGroup>
             </DropdownMenuContent>
