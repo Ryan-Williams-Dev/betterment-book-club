@@ -8,9 +8,9 @@ const NotFoundPage = () => {
     <div className="h-screen w-screen flex justify-center items-center">
       <div className="max-w-5xl flex flex-col gap-2 m-8">
         <TypographyH1>Whoops... 404</TypographyH1>
-        <TypographyH3>Looks like this page doesn't exist yet</TypographyH3>
+        <TypographyH3>Looks like this page doesn&apos;t exist yet</TypographyH3>
         <TypographyH3>
-          Please check back in soon, we're always cooking something fresh
+          Please check back in soon, we&apos;re always cooking something fresh
         </TypographyH3>
         <Link href="/">
           <Button>Go back home</Button>
