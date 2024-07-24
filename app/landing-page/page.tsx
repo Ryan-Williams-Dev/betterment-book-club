@@ -7,6 +7,8 @@ import {
 } from "@/components/typography";
 import { buttonVariants } from "@/components/ui/button";
 import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
+import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
+import { quotes } from "@/lib/data";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import React from "react";
@@ -30,11 +32,12 @@ const LandingPage = () => {
           }}
           className="scroll-m-20 text-6xl font-extrabold tracking-tight mt-[74px] lg:text-8xl text-center py-4 px-6"
         >
-          {/* Empower Your Mind with Community-Driven Reading */}
-          Read, Learn, Improve.
+          Read,
+          <br className="md:hidden" /> Learn,
+          <br className="md:hidden" /> Improve,
           <br />
           <Highlight className="text-black dark:text-white leading-normal">
-            Together
+            Together.
           </Highlight>
         </motion.h1>
 
@@ -72,7 +75,7 @@ const LandingPage = () => {
             duration: 0.5,
             ease: [0.4, 0.0, 0.2, 1],
           }}
-          className="max-w-7xl py-4 px-6 flex justify-center gap-6"
+          className="max-w-7xl py-4 px-6 flex justify-center items-center gap-6 mx-auto"
         >
           <Link
             href="/auth/sign-up"
@@ -87,6 +90,10 @@ const LandingPage = () => {
             <TypographyLarge>Sign In</TypographyLarge>
           </Link>
         </motion.div>
+
+        <div className="w-screen relative overflow-hidden flex justify-center items-center mt-4">
+          <InfiniteMovingCards items={quotes} speed="ultraslow" />
+        </div>
       </HeroHighlight>
     </div>
   );
