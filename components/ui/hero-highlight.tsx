@@ -1,5 +1,4 @@
 "use client";
-import { navHeightPixels } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { useMotionValue, motion, useMotionTemplate } from "framer-motion";
 import React from "react";
@@ -30,7 +29,7 @@ export const HeroHighlight = ({
   return (
     <div
       className={cn(
-        `relative min-h-screen flex items-start pt-[${navHeightPixels}] bg-white dark:bg-background justify-center w-full group`,
+        "relative min-h-screen flex items-start bg-white dark:bg-background justify-center w-full group",
         containerClassName
       )}
       onMouseMove={handleMouseMove}

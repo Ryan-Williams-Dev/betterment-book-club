@@ -10,7 +10,7 @@ const NotFoundPage = () => {
         <TypographyH1>Whoops... 404</TypographyH1>
         <TypographyH3>Looks like this page doesn&apos;t exist yet</TypographyH3>
         <TypographyH3>
-          Please check back in soon, we&apos;re always cooking something fresh
+          Please check back in soon, we&apos;re always adding new features
         </TypographyH3>
         <Link href="/">
           <Button>Go back home</Button>

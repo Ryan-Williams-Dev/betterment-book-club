@@ -27,7 +27,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
-import { navHeightPixels } from "@/lib/constants";
 
 const formSchema = z
   .object({
@@ -67,7 +66,7 @@ const SignUpPage = () => {
 
   return (
     <div
-      className={`min-h-screen max-w-7xl mx-auto gap-4 flex flex-col md:flex-row justify-center md:justify-evenly md:items-center p-4 pt-[${navHeightPixels}] md:p-16`}
+      className={`min-h-screen max-w-7xl mx-auto gap-4 flex flex-col md:flex-row justify-center md:justify-evenly md:items-center p-4 pt-[74px] md:p-16`}
     >
       <div className="dark:text-shadow">
         <TypographyH1>Grow together with Betterment Book Club</TypographyH1>

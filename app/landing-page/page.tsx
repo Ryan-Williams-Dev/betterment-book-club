@@ -28,7 +28,7 @@ const LandingPage = () => {
             duration: 0.5,
             ease: [0.4, 0.0, 0.2, 1],
           }}
-          className="scroll-m-20 text-6xl font-extrabold tracking-tight  lg:text-8xl text-center py-4 px-6"
+          className="scroll-m-20 text-6xl font-extrabold tracking-tight mt-[74px] lg:text-8xl text-center py-4 px-6"
         >
           {/* Empower Your Mind with Community-Driven Reading */}
           Read, Learn, Improve.
