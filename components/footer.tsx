@@ -41,9 +41,14 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="flex gap-4">
+        <div className="flex gap-2">
           {socials.map((item) => (
-            <Link href={item.url}>{item.icon}</Link>
+            <Link
+              className="p-2 hover:bg-zinc-200 dark:hover:bg-zinc-800 rounded-md"
+              href={item.url}
+            >
+              {item.icon}
+            </Link>
           ))}
         </div>
       </div>
