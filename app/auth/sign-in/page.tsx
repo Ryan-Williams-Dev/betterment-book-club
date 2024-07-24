@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
+import { navHeightPixels } from "@/lib/constants";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please eneter a valid email address" }),
@@ -47,7 +48,9 @@ const SignInPage = () => {
   };
 
   return (
-    <div className="min-h-screen max-w-7xl mx-auto gap-4 flex flex-col md:flex-row justify-center md:justify-evenly md:items-center p-4 md:p-16">
+    <div
+      className={`min-h-screen max-w-7xl mx-auto gap-4 flex flex-col md:flex-row justify-center md:justify-evenly md:items-center p-4 pt-[${navHeightPixels}] md:p-16`}
+    >
       <div className="dark:text-shadow">
         <TypographyH1>Check Back in with Betterment Book Club</TypographyH1>
       </div>
