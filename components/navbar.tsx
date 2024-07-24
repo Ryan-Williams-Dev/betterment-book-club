@@ -68,7 +68,7 @@ const NavBar = () => {
         <div className="flex flex-1 justify-center max-md:hidden">
           <ul className="flex gap-4">
             {navLinks.map((item) => (
-              <li>
+              <li key={item.text}>
                 <Link
                   href={item.link}
                   className="text-gray-700 hover:text-black dark:text-gray-300 dark:hover:text-white hover:font-medium"
@@ -107,7 +107,7 @@ const NavBar = () => {
               <DropdownMenuGroup>
                 {navLinks.map((item) => (
                   <DropdownMenuItem>
-                    <Link href={item.link} className="flex">
+                    <Link key={item.text} href={item.link} className="flex">
                       {" "}
                       {item.icon}
                       <span>{item.text}</span>

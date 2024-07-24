@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 interface TypographyH1Props {
   children: ReactNode;
-  className: string;
+  className?: string;
 }
 
 export default function TypographyH1({

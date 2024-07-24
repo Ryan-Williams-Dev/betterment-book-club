@@ -7,7 +7,7 @@ const iconSize = 36;
 
 const socials = [
   {
-    url: "/",
+    url: "https://www.instagram.com/ryan_williams._/",
     icon: <Instagram size={iconSize} />,
   },
   {
@@ -15,11 +15,11 @@ const socials = [
     icon: <Facebook size={iconSize} />,
   },
   {
-    url: "/",
+    url: "https://www.linkedin.com/in/ryan-williams-dev/",
     icon: <Linkedin size={iconSize} />,
   },
   {
-    url: "/",
+    url: "https://github.com/Ryan-Williams-Dev",
     icon: <Github size={iconSize} />,
   },
 ];
@@ -44,6 +44,7 @@ const Footer = () => {
         <div className="flex gap-2">
           {socials.map((item) => (
             <Link
+              key={item.url}
               className="p-2 hover:bg-zinc-200 dark:hover:bg-zinc-800 rounded-md"
               href={item.url}
             >

@@ -78,7 +78,7 @@ const LandingPage = () => {
             href="/auth/sign-up"
             className={buttonVariants({ variant: "default" })}
           >
-            <TypographyLarge>Sign Up</TypographyLarge>
+            <TypographyLarge>Try Now For Free</TypographyLarge>
           </Link>
           <Link
             href="/auth/sign-in"
