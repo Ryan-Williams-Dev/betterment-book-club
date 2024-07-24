@@ -26,6 +26,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Eye } from "lucide-react";
+import { PasswordInput } from "@/components/ui/password-input";
 
 const formSchema = z
   .object({
@@ -128,7 +130,7 @@ const SignUpPage = () => {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input placeholder="Password" {...field} />
+                      <PasswordInput placeholder="Password" {...field} />
                     </FormControl>
                     <FormDescription>
                       Password must be between 8 to 16 characters
@@ -144,7 +146,10 @@ const SignUpPage = () => {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input placeholder="Confirm password" {...field} />
+                      <PasswordInput
+                        placeholder="Confirm password"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

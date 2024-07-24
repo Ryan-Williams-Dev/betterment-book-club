@@ -26,6 +26,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please eneter a valid email address" }),
@@ -77,14 +78,12 @@ const SignInPage = () => {
                 control={form.control}
                 name="password"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="mb-4">
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input placeholder="Password" {...field} />
+                      <PasswordInput placeholder="Password" {...field} />
                     </FormControl>
-                    <FormDescription>
-                      Password must be between 8 to 16 characters
-                    </FormDescription>
+
                     <FormMessage />
                   </FormItem>
                 )}
