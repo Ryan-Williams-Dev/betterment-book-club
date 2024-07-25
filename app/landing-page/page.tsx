@@ -9,9 +9,12 @@ import { buttonVariants } from "@/components/ui/button";
 import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 import { quotes } from "@/lib/data";
+import { shuffleArray } from "@/lib/utils";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import React from "react";
+
+const shuffledQuotes = shuffleArray(quotes);
 
 const LandingPage = () => {
   return (
@@ -92,7 +95,11 @@ const LandingPage = () => {
         </motion.div>
 
         <div className="w-screen relative overflow-hidden flex justify-center items-center mt-4">
-          <InfiniteMovingCards items={quotes} speed="ultraslow" />
+          <InfiniteMovingCards
+            items={shuffledQuotes}
+            speed="ultraslow"
+            pauseOnHover={false}
+          />
         </div>
       </HeroHighlight>
     </div>
