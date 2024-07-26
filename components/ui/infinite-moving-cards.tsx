@@ -26,6 +26,8 @@ export const InfiniteMovingCards = ({
 
   const controls = useDragControls();
 
+  const [loaded, setLoaded] = useState(false);
+
   useEffect(() => {
     addAnimation();
   }, []);
@@ -44,6 +46,7 @@ export const InfiniteMovingCards = ({
       getDirection();
       getSpeed();
       setStart(true);
+      setLoaded(true);
     }
   }
   const getDirection = () => {
@@ -93,29 +96,30 @@ export const InfiniteMovingCards = ({
           pauseOnHover && "hover:[animation-play-state:paused]"
         )}
       >
-        {items.map((item, idx) => (
-          <li
-            className="w-[350px] max-w-full relative rounded-2xl border  flex-shrink-0  shadow-sm border-zinc-200 dark:border-zinc-700 px-8 py-6 md:w-[450px] bg-gradient-to-r from-zinc-100 to-zinc-50 dark:from-zinc-900 dark:to-zinc-950 hover:cursor-grab active:cursor-grabbing"
-            key={idx}
-          >
-            <blockquote>
-              <div
-                aria-hidden="true"
-                className="user-select-none -z-1 pointer-events-none absolute -left-0.5 -top-0.5 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"
-              ></div>
-              <span className=" relative z-20">
-                <TypographyP>{item.quote}</TypographyP>
-              </span>
-              <div className="relative z-20 mt-6 flex flex-row items-center">
-                <span className="flex flex-col gap-1">
-                  <span className="leading-[1.6]">
-                    <TypographyMuted>{item.author}</TypographyMuted>
-                  </span>
+        {loaded &&
+          items.map((item, idx) => (
+            <li
+              className="w-[350px] max-w-full relative rounded-2xl border  flex-shrink-0  shadow-sm border-zinc-200 dark:border-zinc-700 px-8 py-6 md:w-[450px] bg-gradient-to-r from-zinc-100 to-zinc-50 dark:from-zinc-900 dark:to-zinc-950 hover:cursor-grab active:cursor-grabbing"
+              key={idx}
+            >
+              <blockquote>
+                <div
+                  aria-hidden="true"
+                  className="user-select-none -z-1 pointer-events-none absolute -left-0.5 -top-0.5 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"
+                ></div>
+                <span className=" relative z-20">
+                  <TypographyP>{item.quote}</TypographyP>
                 </span>
-              </div>
-            </blockquote>
-          </li>
-        ))}
+                <div className="relative z-20 mt-6 flex flex-row items-center">
+                  <span className="flex flex-col gap-1">
+                    <span className="leading-[1.6]">
+                      <TypographyMuted>{item.author}</TypographyMuted>
+                    </span>
+                  </span>
+                </div>
+              </blockquote>
+            </li>
+          ))}
       </motion.ul>
     </div>
   );
