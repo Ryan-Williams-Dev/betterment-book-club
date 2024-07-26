@@ -85,6 +85,7 @@ export const InfiniteMovingCards = ({
       <motion.ul
         drag="x"
         dragControls={controls}
+        dragConstraints={{ right: 100 }}
         ref={scrollerRef}
         className={cn(
           " flex min-w-full shrink-0 gap-4 py-4 w-max flex-nowrap",
@@ -95,10 +96,6 @@ export const InfiniteMovingCards = ({
         {items.map((item, idx) => (
           <li
             className="w-[350px] max-w-full relative rounded-2xl border  flex-shrink-0  shadow-sm border-zinc-200 dark:border-zinc-700 px-8 py-6 md:w-[450px] bg-gradient-to-r from-zinc-100 to-zinc-50 dark:from-zinc-900 dark:to-zinc-950 hover:cursor-grab active:cursor-grabbing"
-            // style={{
-            //   background:
-            //     "linear-gradient(180deg, var(--zinc-800), var(--zinc-900)",
-            // }}
             key={idx}
           >
             <blockquote>
