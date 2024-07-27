@@ -3,9 +3,9 @@ import { Inter as FontSans } from "next/font/google";
 import "@/styles/globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
-import { ModeToggle } from "@/components/ui/mode-toggle";
 import Footer from "@/components/footer";
 import NavBar from "@/components/navbar";
+import SidebarWrapper from "@/components/sidebar-wrapper";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -22,6 +22,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Switch this to test logged in vs not logged in for now
+  const signedIn = true;
+
   return (
     <html lang="en">
       <body
@@ -31,8 +34,17 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider attribute="class">
-          <NavBar />
-          <div>{children}</div>
+          {!signedIn && (
+            <>
+              <NavBar />
+              <div>{children}</div>
+            </>
+          )}
+          {signedIn && (
+            <SidebarWrapper>
+              <div>{children}</div>
+            </SidebarWrapper>
+          )}
 
           <Footer />
         </ThemeProvider>
