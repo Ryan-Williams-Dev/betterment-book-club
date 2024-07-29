@@ -37,14 +37,10 @@ export default function RootLayout({
           {!signedIn && (
             <>
               <NavBar />
-              <div>{children}</div>
+              {children}
             </>
           )}
-          {signedIn && (
-            <SidebarWrapper>
-              <div>{children}</div>
-            </SidebarWrapper>
-          )}
+          {signedIn && <SidebarWrapper>{children}</SidebarWrapper>}
 
           <Footer />
         </ThemeProvider>

@@ -15,7 +15,7 @@ import React from "react";
 
 const LandingPage = () => {
   return (
-    <div className="min-h-screen w-screen top-0 mx-auto flex justify-center ">
+    <div className="min-h-screen flex-1 top-0 mx-auto flex justify-center ">
       <HeroHighlight>
         <motion.h1
           initial={{

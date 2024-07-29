@@ -51,15 +51,18 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
               ))}
             </div>
           </div>
-          <div>
-            <ModeToggle />
+          <div
+            className={`flex flex-col justify-center ${
+              open ? "items-start" : "items-center"
+            } gap-2`}
+          >
             <SidebarLink
               link={{
                 label: "Username",
                 href: "#",
                 icon: (
                   <Image
-                    src=""
+                    src="/profile-pic-placeholder.jpg"
                     className="h-7 w-7 flex-shrink-0 rounded-full"
                     width={50}
                     height={50}
@@ -68,6 +71,8 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
                 ),
               }}
             />
+
+            <ModeToggle />
           </div>
         </SidebarBody>
       </Sidebar>
@@ -86,7 +91,7 @@ export const Logo = () => {
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="font-black  whitespace-pre"
+        className="font-black whitespace-pre"
       >
         Betterment Book Club
       </motion.span>
