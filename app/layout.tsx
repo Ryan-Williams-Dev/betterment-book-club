@@ -4,8 +4,6 @@ import "@/styles/globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import Footer from "@/components/footer";
-import NavBar from "@/components/navbar";
-import SidebarWrapper from "@/components/sidebar-wrapper";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -23,7 +21,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   // Switch this to test logged in vs not logged in for now
-  const signedIn = true;
 
   return (
     <html lang="en">
@@ -34,14 +31,7 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider attribute="class">
-          {!signedIn && (
-            <>
-              <NavBar />
-              {children}
-            </>
-          )}
-          {signedIn && <SidebarWrapper>{children}</SidebarWrapper>}
-
+          {children}
           <Footer />
         </ThemeProvider>
       </body>
