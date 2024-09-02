@@ -2,7 +2,6 @@
 
 import NavBar from "@/components/navbar";
 import {
-  TypographyH1,
   TypographyH3,
   TypographyLarge,
 } from "@/components/typography";
