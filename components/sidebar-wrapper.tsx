@@ -85,7 +85,7 @@ export const Logo = () => {
   return (
     <Link
       href="#"
-      className="font-normal flex space-x-2 items-center text-sm text-primary-foreground dark:text-white py-1 relative z-20"
+      className="font-normal flex space-x-2 items-center text-sm dark:text-white py-1 relative z-20"
     >
       <Book className="h-5 w-6 flex-shrink-0" />
       <motion.span
@@ -102,7 +102,7 @@ export const LogoIcon = () => {
   return (
     <Link
       href="#"
-      className="font-normal flex space-x-2 items-center text-sm text-primary-foreground dark:text-white py-1 relative z-20"
+      className="font-normal flex space-x-2 items-center text-sm dark:text-white py-1 relative z-20"
     >
       <Book className="h-5 w-6 flex-shrink-0" />
     </Link>
