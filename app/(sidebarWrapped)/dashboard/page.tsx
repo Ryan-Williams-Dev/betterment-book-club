@@ -1,11 +1,27 @@
-"use client"
-import { TypographyH1, TypographyH2, TypographyH3, TypographyH4, TypographyP,} from "@/components/typography";
+"use client";
+import {
+  TypographyH1,
+  TypographyH2,
+  TypographyH3,
+  TypographyH4,
+  TypographyMuted,
+  TypographyP,
+  TypographySmall,
+} from "@/components/typography";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { useEffect, useState } from "react";
-import Image from "next/image"
+import Image from "next/image";
+import { Progress } from "@/components/ui/progress";
 
-const cardStyling = "flex-1 min-w-[200px] dark:hover:bg-zinc-900 hover:shadow-md"
+const cardStyling =
+  "flex-1 min-w-[200px] dark:hover:bg-zinc-900 hover:shadow-md";
 
 interface VolumeInfo {
   title: string;
@@ -46,7 +62,9 @@ const DashboardPage = () => {
         if (originalBook) {
           setBookData(originalBook.volumeInfo);
         } else {
-          console.log("Original book not found, displaying an error message or alternative.");
+          console.log(
+            "Original book not found, displaying an error message or alternative."
+          );
           setBookData(null);
         }
       } catch (error) {
@@ -57,8 +75,6 @@ const DashboardPage = () => {
     fetchBookData();
   }, []);
 
-  console.log(bookData)
-
   return (
     <div className="flex flex-1 flex-col p-8 gap-6">
       <TypographyH1>Dashboard</TypographyH1>
@@ -66,31 +82,39 @@ const DashboardPage = () => {
       <div className="flex flex-wrap gap-4">
         {bookData ? (
           <Card className={cardStyling}>
-          <CardHeader>
-            <CardTitle>Last read</CardTitle>
-          </CardHeader>
-          <CardContent className="flex justify-between items-center gap-4">
-            <div className="flex-1">
-              <TypographyH4>{bookData.title}</TypographyH4>
-              <p className="text-sm text-gray-600">by {bookData.authors?.join(", ")}</p>
-              <p className="text-sm mt-2">{bookData.description?.substring(0, 100)}...</p>
-            </div>
-            {bookData.imageLinks?.thumbnail && (
-              <div className="flex-shrink-0">
-                <Image
-                  src={bookData.imageLinks.thumbnail}
-                  alt={bookData.title}
-                  width={128}
-                  height={192}
-                  className="w-32 h-auto rounded-sm shadow-md"
-                />
+            <CardHeader>
+              <CardTitle>Last read</CardTitle>
+            </CardHeader>
+            <CardContent className="flex flex-wrap justify-between items-start gap-4">
+              <div className="flex-1 flex flex-col justify-between">
+                <div>
+                  <TypographyH4>{bookData.title}</TypographyH4>
+                  <TypographyMuted>
+                    by {bookData.authors?.join(", ")}
+                  </TypographyMuted>
+                  <TypographySmall>
+                    {bookData.description?.substring(0, 50)}...
+                  </TypographySmall>
+                </div>
               </div>
-            )}
-          </CardContent>
-          <CardFooter>
-            <Button className="w-full">Log reading</Button>
-          </CardFooter>
-        </Card>
+              {bookData.imageLinks?.thumbnail && (
+                <div className="flex-shrink-0">
+                  <Image
+                    src={bookData.imageLinks.thumbnail}
+                    alt={bookData.title}
+                    width={128}
+                    height={192}
+                    className="max-w-32 h-auto rounded-sm shadow-md"
+                  />
+                </div>
+              )}
+              <TypographyMuted>Page 33 of 100</TypographyMuted>
+              <Progress value={33} />
+            </CardContent>
+            <CardFooter>
+              <Button className="w-full">Add Progress</Button>
+            </CardFooter>
+          </Card>
         ) : (
           <Card className={cardStyling}>
             <CardHeader>
