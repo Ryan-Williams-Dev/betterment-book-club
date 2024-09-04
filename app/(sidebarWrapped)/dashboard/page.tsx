@@ -85,31 +85,35 @@ const DashboardPage = () => {
             <CardHeader>
               <CardTitle>Last read</CardTitle>
             </CardHeader>
-            <CardContent className="flex flex-wrap justify-between items-start gap-4">
-              <div className="flex-1 flex flex-col justify-between">
-                <div>
-                  <TypographyH4>{bookData.title}</TypographyH4>
-                  <TypographyMuted>
-                    by {bookData.authors?.join(", ")}
-                  </TypographyMuted>
-                  <TypographySmall>
-                    {bookData.description?.substring(0, 50)}...
-                  </TypographySmall>
+            <CardContent className="flex flex-col gap-4">
+              <div className="flex flex-row gap-4">
+                <div className="flex-1 flex flex-col justify-between">
+                  <div>
+                    <TypographyH4>{bookData.title}</TypographyH4>
+                    <TypographyMuted>
+                      by {bookData.authors?.join(", ")}
+                    </TypographyMuted>
+                    <TypographySmall>
+                      {bookData.description?.substring(0, 100)}...
+                    </TypographySmall>
+                  </div>
                 </div>
+                {bookData.imageLinks?.thumbnail && (
+                  <div className="flex-shrink-0">
+                    <Image
+                      src={bookData.imageLinks.thumbnail}
+                      alt={bookData.title}
+                      width={128}
+                      height={192}
+                      className="max-w-32 h-auto rounded-sm shadow-md"
+                    />
+                  </div>
+                )}
               </div>
-              {bookData.imageLinks?.thumbnail && (
-                <div className="flex-shrink-0">
-                  <Image
-                    src={bookData.imageLinks.thumbnail}
-                    alt={bookData.title}
-                    width={128}
-                    height={192}
-                    className="max-w-32 h-auto rounded-sm shadow-md"
-                  />
-                </div>
-              )}
-              <TypographyMuted>Page 33 of 100</TypographyMuted>
-              <Progress value={33} />
+              <div className="flex flex-col mt-2">
+                <TypographyMuted>Page 33 of 100</TypographyMuted>
+                <Progress value={33} className="w-full mt-1" />
+              </div>
             </CardContent>
             <CardFooter>
               <Button className="w-full">Add Progress</Button>

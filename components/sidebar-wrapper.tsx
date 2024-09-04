@@ -7,7 +7,13 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { Book, LayoutDashboard } from "lucide-react";
+import {
+  Book,
+  LayoutDashboard,
+  Library,
+  MessageSquare,
+  Search,
+} from "lucide-react";
 import { ModeToggle } from "./ui/mode-toggle";
 
 type SidebarWrapperProps = { children: ReactNode };
@@ -24,19 +30,19 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
       icon: <LayoutDashboard className={iconStyles} />,
     },
     {
-      label: "Dashboard",
-      href: "#",
-      icon: <LayoutDashboard className={iconStyles} />,
+      label: "Search Books",
+      href: "/search",
+      icon: <Search className={iconStyles} />,
     },
     {
-      label: "Dashboard",
+      label: "Library",
       href: "#",
-      icon: <LayoutDashboard className={iconStyles} />,
+      icon: <Library className={iconStyles} />,
     },
     {
-      label: "Dashboard",
+      label: "Discussion",
       href: "#",
-      icon: <LayoutDashboard className={iconStyles} />,
+      icon: <MessageSquare className={iconStyles} />,
     },
   ];
   return (
