@@ -1,44 +1,16 @@
 "use client";
-import {
-  TypographyH1,
-  TypographyH2,
-  TypographyH3,
-  TypographyH4,
-  TypographyMuted,
-  TypographyP,
-  TypographySmall,
-} from "@/components/typography";
+import { TypographyH1, TypographyH2 } from "@/components/typography";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEffect, useState } from "react";
-import Image from "next/image";
-import { Progress } from "@/components/ui/progress";
+import BookCard from "@/components/BookCard";
+import { Book } from "@/types/book";
 
 const cardStyling =
   "flex-1 min-w-[200px] dark:hover:bg-zinc-900 hover:shadow-md";
 
-interface VolumeInfo {
-  title: string;
-  authors?: string[];
-  description?: string;
-  language?: string;
-  imageLinks?: {
-    thumbnail: string;
-  };
-}
-
-interface Book {
-  volumeInfo: VolumeInfo;
-}
-
 const DashboardPage = () => {
-  const [bookData, setBookData] = useState<VolumeInfo | null>(null);
+  const [lastRead, setLastRead] = useState<Book | null>(null);
 
   useEffect(() => {
     const fetchBookData = async () => {
@@ -60,12 +32,12 @@ const DashboardPage = () => {
         });
 
         if (originalBook) {
-          setBookData(originalBook.volumeInfo);
+          setLastRead(originalBook);
         } else {
           console.log(
             "Original book not found, displaying an error message or alternative."
           );
-          setBookData(null);
+          setLastRead(null);
         }
       } catch (error) {
         console.error("Error fetching book data:", error);
@@ -76,62 +48,19 @@ const DashboardPage = () => {
   }, []);
 
   return (
-    <div className="flex flex-1 flex-col p-8 gap-6">
+    <div className="flex flex-1 flex-col max-w-7xl mx-auto p-8 gap-6">
       <TypographyH1>Dashboard</TypographyH1>
       <TypographyH2>Welcome back, Ryan 👋</TypographyH2>
-      <div className="flex flex-wrap gap-4">
-        {bookData ? (
-          <Card className={cardStyling}>
-            <CardHeader>
-              <CardTitle>Last read</CardTitle>
-            </CardHeader>
-            <CardContent className="flex flex-col gap-4">
-              <div className="flex flex-row gap-4">
-                <div className="flex-1 flex flex-col justify-between">
-                  <div>
-                    <TypographyH4>{bookData.title}</TypographyH4>
-                    <TypographyMuted>
-                      by {bookData.authors?.join(", ")}
-                    </TypographyMuted>
-                    <TypographySmall>
-                      {bookData.description?.substring(0, 100)}...
-                    </TypographySmall>
-                  </div>
-                </div>
-                {bookData.imageLinks?.thumbnail && (
-                  <div className="flex-shrink-0">
-                    <Image
-                      src={bookData.imageLinks.thumbnail}
-                      alt={bookData.title}
-                      width={128}
-                      height={192}
-                      className="max-w-32 h-auto rounded-sm shadow-md"
-                    />
-                  </div>
-                )}
-              </div>
-              <div className="flex flex-col mt-2">
-                <TypographyMuted>Page 33 of 100</TypographyMuted>
-                <Progress value={33} className="w-full mt-1" />
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button className="w-full">Add Progress</Button>
-            </CardFooter>
-          </Card>
-        ) : (
-          <Card className={cardStyling}>
-            <CardHeader>
-              <CardTitle>Last read</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p>Loading book data...</p>
-            </CardContent>
-            <CardFooter>
-              <Button>Log reading</Button>
-            </CardFooter>
-          </Card>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-7xl mx-auto">
+        {lastRead && (
+          <BookCard
+            book={lastRead}
+            cardTitle="Last Read"
+            pageNumber={78}
+            isReading
+          />
         )}
+        {lastRead && <BookCard book={lastRead} />}
         <Card className={cardStyling}>
           <CardHeader>
             <CardTitle>Last read</CardTitle>

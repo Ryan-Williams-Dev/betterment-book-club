@@ -8,5 +8,6 @@ export interface Book {
       thumbnail: string;
     };
     language: string;
+    pageCount: number;
   };
 }

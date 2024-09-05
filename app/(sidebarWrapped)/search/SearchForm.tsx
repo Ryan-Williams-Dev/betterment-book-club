@@ -17,7 +17,10 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4 mb-8">
+    <form
+      onSubmit={handleSubmit}
+      className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl mb-8"
+    >
       <Input
         value={title}
         onChange={(e) => setTitle(e.target.value)}
@@ -33,7 +36,9 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
         onChange={(e) => setGenre(e.target.value)}
         placeholder="Enter genre"
       />
-      <Button type="submit">Search</Button>
+      <Button type="submit" className="lg:col-span-1">
+        Search
+      </Button>
     </form>
   );
 };
