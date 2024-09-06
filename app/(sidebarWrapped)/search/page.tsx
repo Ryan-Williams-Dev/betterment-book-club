@@ -43,7 +43,10 @@ const SearchPage = () => {
 
   return (
     <div className="p-8 w-full max-w-7xl mx-auto">
-      <TypographyH1>Search Books</TypographyH1>
+      <div className="mb-6">
+        <TypographyH1>Search Books</TypographyH1>
+      </div>
+
       <SearchForm onSearch={handleSearch} />
       {loading ? <p>Loading...</p> : <BookList books={books} />}
     </div>
