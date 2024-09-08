@@ -27,6 +27,8 @@ const BookPreviewBlock: React.FC<BookCardContentProps> = ({ book }) => {
           <TypographyMuted>
             by {book.volumeInfo.authors?.join(", ")}
           </TypographyMuted>
+          {/* I want to refactor the description substring adjust it's length based on the card size and screen size */}
+          
           <TypographySmall>
             {book.volumeInfo.description?.substring(0, 100)}...
           </TypographySmall>
