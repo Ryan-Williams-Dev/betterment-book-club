@@ -6,13 +6,13 @@ import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
 import {
   Book,
   LayoutDashboard,
   Library,
   MessageSquare,
   Search,
+  Users,
 } from "lucide-react";
 import { ModeToggle } from "./ui/mode-toggle";
 
@@ -35,7 +35,7 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
       icon: <Search className={iconStyles} />,
     },
     {
-      label: "Library",
+      label: "My Bookshelf",
       href: "#",
       icon: <Library className={iconStyles} />,
     },
@@ -44,6 +44,11 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
       href: "#",
       icon: <MessageSquare className={iconStyles} />,
     },
+    {
+      label: "My Groups",
+      href: "#",
+      icon: <Users className={iconStyles} />,
+    }
   ];
   return (
     <div className="flex flex-col md:flex-row max-w-screen flex-1 overflow-hidden h-screen">

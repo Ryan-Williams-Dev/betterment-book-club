@@ -23,14 +23,14 @@ const BookPreviewBlock: React.FC<BookCardContentProps> = ({ book }) => {
       )}
       <div className="flex-1 flex flex-col justify-between">
         <div>
-          <TypographyH4>{book.volumeInfo.title}</TypographyH4>
+          <TypographyH4>{book.volumeInfo.title.length > 30 ? book.volumeInfo.title.substring(0, 30) + "..." : book.volumeInfo.title}</TypographyH4>
           <TypographyMuted>
             by {book.volumeInfo.authors?.join(", ")}
           </TypographyMuted>
           {/* I want to refactor the description substring adjust it's length based on the card size and screen size */}
           
           <TypographySmall>
-            {book.volumeInfo.description?.substring(0, 100)}...
+            { book.volumeInfo.description ? book.volumeInfo.description?.substring(0, 100) + "..." : "No description available"}
           </TypographySmall>
         </div>
       </div>
