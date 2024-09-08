@@ -6,15 +6,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  TypographyH4,
-  TypographySmall,
-  TypographyMuted,
-} from "@/components/typography";
-import Image from "next/image";
+import { TypographyMuted } from "@/components/typography";
 import { Book } from "@/types/book";
 import { Progress } from "./ui/progress";
 import { Button } from "./ui/button";
+import BookPreviewBlock from "./BookPreviewBlock";
 
 interface BookCardProps {
   book: Book;
@@ -34,31 +30,8 @@ const BookCard: React.FC<BookCardProps> = ({
   return (
     <Card className="min-w-[200px] dark:hover:bg-zinc-900 hover:shadow-md">
       <CardHeader>{cardTitle && <CardTitle>{cardTitle}</CardTitle>}</CardHeader>
-      <CardContent className="flex flex-col gap-4">
-        <div className="flex flex-row gap-4">
-          <div className="flex-1 flex flex-col justify-between">
-            <div>
-              <TypographyH4>{book.volumeInfo.title}</TypographyH4>
-              <TypographyMuted>
-                by {book.volumeInfo.authors?.join(", ")}
-              </TypographyMuted>
-              <TypographySmall>
-                {book.volumeInfo.description?.substring(0, 100)}...
-              </TypographySmall>
-            </div>
-          </div>
-          {book.volumeInfo.imageLinks?.thumbnail && (
-            <div className="flex-shrink-0">
-              <Image
-                src={book.volumeInfo.imageLinks.thumbnail}
-                alt={book.volumeInfo.title}
-                width={128}
-                height={192}
-                className="max-w-32 h-auto rounded-sm shadow-md"
-              />
-            </div>
-          )}
-        </div>
+      <CardContent className="">
+        <BookPreviewBlock book={book} />
         {isReading && (
           <div className="mt-4">
             <div className="flex flex-row w-full space-between">
