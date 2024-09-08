@@ -9,18 +9,7 @@ interface BookCardContentProps {
 
 const BookPreviewBlock: React.FC<BookCardContentProps> = ({ book }) => {
   return (
-    <div className="flex flex-row gap-4">
-      <div className="flex-1 flex flex-col justify-between">
-        <div>
-          <TypographyH4>{book.volumeInfo.title}</TypographyH4>
-          <TypographyMuted>
-            by {book.volumeInfo.authors?.join(", ")}
-          </TypographyMuted>
-          <TypographySmall>
-            {book.volumeInfo.description?.substring(0, 100)}...
-          </TypographySmall>
-        </div>
-      </div>
+    <div className="flex flex-row gap-6">
       {book.volumeInfo.imageLinks?.thumbnail && (
         <div className="flex-shrink-0">
           <Image
@@ -32,6 +21,17 @@ const BookPreviewBlock: React.FC<BookCardContentProps> = ({ book }) => {
           />
         </div>
       )}
+      <div className="flex-1 flex flex-col justify-between">
+        <div>
+          <TypographyH4>{book.volumeInfo.title}</TypographyH4>
+          <TypographyMuted>
+            by {book.volumeInfo.authors?.join(", ")}
+          </TypographyMuted>
+          <TypographySmall>
+            {book.volumeInfo.description?.substring(0, 100)}...
+          </TypographySmall>
+        </div>
+      </div>
     </div>
   );
 };
