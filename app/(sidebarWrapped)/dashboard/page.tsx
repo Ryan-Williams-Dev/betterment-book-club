@@ -1,10 +1,16 @@
 "use client";
 import { TypographyH1, TypographyH2 } from "@/components/typography";
 import { Button } from "@/components/ui/button";
-import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { useEffect, useState } from "react";
-import BookCard from "@/components/BookCard";
 import { Book } from "@/types/book";
+import LastReadCard from "@/components/dashboard/LastReadCard";
 
 const cardStyling =
   "flex-1 min-w-[200px] dark:hover:bg-zinc-900 hover:shadow-md";
@@ -52,15 +58,12 @@ const DashboardPage = () => {
       <TypographyH1>Dashboard</TypographyH1>
       <TypographyH2>Welcome back, Ryan 👋</TypographyH2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-7xl mx-auto">
-        {lastRead && (
-          <BookCard
-            book={lastRead}
-            cardTitle="Last Read"
-            pageNumber={78}
-            isReading
-          />
+        {lastRead ? (
+          <LastReadCard book={lastRead} pageNumber={100} />
+        ) : (
+          <CardContent>Loading...</CardContent>
         )}
-        {lastRead && <BookCard book={lastRead} />}
+
         <Card className={cardStyling}>
           <CardHeader>
             <CardTitle>Last read</CardTitle>
