@@ -11,12 +11,15 @@ import {
 import { useEffect, useState } from "react";
 import { Book } from "@/types/book";
 import LastReadCard from "@/components/dashboard/LastReadCard";
+import { Skeleton } from "@/components/ui/skeleton";
+import SkeletonBookCard from "@/components/SkeletonBookCard";
 
 const cardStyling =
   "flex-1 min-w-[200px] dark:hover:bg-zinc-900 hover:shadow-md";
 
 const DashboardPage = () => {
   const [lastRead, setLastRead] = useState<Book | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchBookData = async () => {
@@ -47,6 +50,8 @@ const DashboardPage = () => {
         }
       } catch (error) {
         console.error("Error fetching book data:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -57,29 +62,36 @@ const DashboardPage = () => {
     <div className="flex flex-1 flex-col max-w-7xl mx-auto p-8 gap-6">
       <TypographyH1>Dashboard</TypographyH1>
       <TypographyH2>Welcome back, Ryan 👋</TypographyH2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-7xl mx-auto">
-        {lastRead ? (
-          <LastReadCard book={lastRead} pageNumber={100} />
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-7xl mx-auto">
+        {loading ? (
+          <>
+            <SkeletonBookCard />
+            <SkeletonBookCard />
+            <SkeletonBookCard />
+          </>
         ) : (
-          <CardContent>Loading...</CardContent>
+          lastRead && (
+            <>
+              <LastReadCard book={lastRead} pageNumber={100} />
+              <Card className={cardStyling}>
+                <CardHeader>
+                  <CardTitle>Last read</CardTitle>
+                </CardHeader>
+                <CardFooter>
+                  <Button>Log reading</Button>
+                </CardFooter>
+              </Card>
+              <Card className={cardStyling}>
+                <CardHeader>
+                  <CardTitle>Last read</CardTitle>
+                </CardHeader>
+                <CardFooter>
+                  <Button className="w-full">Log reading</Button>
+                </CardFooter>
+              </Card>
+            </>
+          )
         )}
-
-        <Card className={cardStyling}>
-          <CardHeader>
-            <CardTitle>Last read</CardTitle>
-          </CardHeader>
-          <CardFooter>
-            <Button>Log reading</Button>
-          </CardFooter>
-        </Card>
-        <Card className={cardStyling}>
-          <CardHeader>
-            <CardTitle>Last read</CardTitle>
-          </CardHeader>
-          <CardFooter>
-            <Button className="w-full">Log reading</Button>
-          </CardFooter>
-        </Card>
       </div>
     </div>
   );
