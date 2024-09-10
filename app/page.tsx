@@ -1,10 +1,8 @@
 "use client";
 
+import Footer from "@/components/footer";
 import NavBar from "@/components/navbar";
-import {
-  TypographyH3,
-  TypographyLarge,
-} from "@/components/typography";
+import { TypographyH3, TypographyLarge } from "@/components/typography";
 import { buttonVariants } from "@/components/ui/button";
 import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
@@ -103,6 +101,7 @@ const LandingPage = () => {
           )}
         </HeroHighlight>
       </div>
+      <Footer />
     </>
   );
 };

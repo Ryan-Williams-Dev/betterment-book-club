@@ -1,5 +1,6 @@
 "use client";
 
+import Footer from "@/components/footer";
 import NavBar from "@/components/navbar";
 import { cn } from "@/lib/utils";
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
@@ -50,6 +51,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
 
         <div className={cn("relative z-20")}>{children}</div>
       </div>
+      <Footer />
     </>
   );
 }

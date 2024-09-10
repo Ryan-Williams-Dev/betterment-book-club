@@ -30,10 +30,7 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <ThemeProvider attribute="class">
-          {children}
-          <Footer />
-        </ThemeProvider>
+        <ThemeProvider attribute="class">{children}</ThemeProvider>
       </body>
     </html>
   );

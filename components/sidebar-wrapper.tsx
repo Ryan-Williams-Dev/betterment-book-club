@@ -48,7 +48,7 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
       label: "My Groups",
       href: "#",
       icon: <Users className={iconStyles} />,
-    }
+    },
   ];
   return (
     <div className="flex flex-col md:flex-row max-w-screen flex-1 overflow-hidden h-screen">
@@ -87,7 +87,7 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
           </div>
         </SidebarBody>
       </Sidebar>
-      <div className="flex flex-1">{children}</div>
+      <div className="flex flex-1 overflow-y-auto">{children}</div>
     </div>
   );
 };
