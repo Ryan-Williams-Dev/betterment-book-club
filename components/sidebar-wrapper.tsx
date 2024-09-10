@@ -50,6 +50,13 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
       icon: <Users className={iconStyles} />,
     },
   ];
+
+  const handleLinkClick = () => {
+    if (window.innerWidth < 768) {
+      setOpen(false);
+    }
+  };
+
   return (
     <div className="flex flex-col md:flex-row max-w-screen flex-1 overflow-hidden h-screen">
       <Sidebar open={open} setOpen={setOpen}>
@@ -58,7 +65,7 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
             {open ? <Logo /> : <LogoIcon />}
             <div className="mt-8 flex flex-col gap-2">
               {links.map((link, idx) => (
-                <SidebarLink key={idx} link={link} />
+                <SidebarLink key={idx} link={link} onClick={handleLinkClick} />
               ))}
             </div>
           </div>

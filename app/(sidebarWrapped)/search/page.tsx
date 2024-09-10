@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { TypographyH1 } from "@/components/typography";
+import { TypographyH1, TypographyH2 } from "@/components/typography";
 import { fetchBooks, filterBooksByLanguage } from "./api";
 import SearchForm from "./SearchForm";
 import BookList from "./BookList";
@@ -48,6 +48,7 @@ const SearchPage = () => {
       </div>
 
       <SearchForm onSearch={handleSearch} />
+      <div className="mb-8 border-b"></div>
       {loading ? <p>Loading...</p> : <BookList books={books} />}
     </div>
   );
