@@ -1,4 +1,3 @@
-import Footer from "@/components/footer";
 import SidebarWrapper from "@/components/sidebar-wrapper";
 import React, { ReactNode } from "react";
 

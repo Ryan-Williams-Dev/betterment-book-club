@@ -6,8 +6,16 @@ export interface Book {
     description?: string;
     imageLinks?: {
       thumbnail: string;
+      small: string;
+      medium: string;
+      large: string;
+      extraLarge: string;
     };
     language: string;
     pageCount: number;
+    categories?: string[];
+  };
+  searchInfo: {
+    textSnippet: string;
   };
 }

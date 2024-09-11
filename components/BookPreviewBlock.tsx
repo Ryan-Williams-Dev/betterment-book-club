@@ -35,10 +35,15 @@ const BookPreviewBlock: React.FC<BookCardContentProps> = ({ book }) => {
           </TypographyMuted>
 
           <TypographySmall>
+            {book.searchInfo?.textSnippet
+              ? book.searchInfo.textSnippet.substring(0, 120) + "..."
+              : "No description available"}
+          </TypographySmall>
+          {/* <TypographySmall>
             {book.volumeInfo.description
               ? book.volumeInfo.description?.substring(0, 100) + "..."
               : "No description available"}
-          </TypographySmall>
+          </TypographySmall> */}
         </div>
       </div>
     </div>
