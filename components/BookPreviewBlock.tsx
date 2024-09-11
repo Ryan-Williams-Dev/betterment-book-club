@@ -2,6 +2,7 @@ import React from "react";
 import { TypographyH4, TypographyMuted, TypographySmall } from "./typography";
 import Image from "next/image";
 import { Book } from "@/types/book";
+import htmlDecoder from "@/utils/htmlDecoder";
 
 interface BookCardContentProps {
   book: Book;
@@ -9,7 +10,7 @@ interface BookCardContentProps {
 
 const BookPreviewBlock: React.FC<BookCardContentProps> = ({ book }) => {
   return (
-    <div className="flex flex-row gap-6">
+    <div className="flex flex-row flex-wrap gap-6">
       <div className="flex-shrink-0">
         <Image
           src={
@@ -23,7 +24,7 @@ const BookPreviewBlock: React.FC<BookCardContentProps> = ({ book }) => {
           className="max-w-32 h-auto rounded-sm shadow-md"
         />
       </div>
-      <div className="flex-1 flex flex-col justify-between">
+      <div className="flex-1 flex flex-col justify-between min-w-32">
         <div>
           <TypographyH4>
             {book.volumeInfo.title.length > 30
@@ -36,7 +37,8 @@ const BookPreviewBlock: React.FC<BookCardContentProps> = ({ book }) => {
 
           <TypographySmall>
             {book.searchInfo?.textSnippet
-              ? book.searchInfo.textSnippet.substring(0, 120) + "..."
+              ? htmlDecoder(book.searchInfo.textSnippet.substring(0, 120)) +
+                "..."
               : "No description available"}
           </TypographySmall>
           {/* <TypographySmall>

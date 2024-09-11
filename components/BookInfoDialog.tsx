@@ -19,6 +19,7 @@ import {
   TypographySmall,
 } from "./typography";
 import { Button } from "./ui/button";
+import { ScrollArea } from "./ui/scroll-area";
 
 interface BookInfoDialogProps {
   triggerButton: ReactNode;
@@ -32,41 +33,49 @@ const BookInfoDialog = ({ book, triggerButton }: BookInfoDialogProps) => {
   return (
     <Dialog>
       <DialogTrigger className="w-full">{triggerButton}</DialogTrigger>
-      <DialogContent className="w-4/5 md:w-auto max-h-[80vh] max-w-4xl mx-auto overflow-y-auto">
-        <div className="flex flex-row gap-4 border-b-zinc-500">
-          <Image
-            height={300}
-            width={200}
-            src={
-              book.volumeInfo.imageLinks?.extraLarge ||
-              book.volumeInfo.imageLinks?.large ||
-              book.volumeInfo.imageLinks?.thumbnail ||
-              "/book-placeholder.gif"
-            }
-            alt={book.volumeInfo.title}
-          />
+      <DialogContent className="w-4/5 md:w-auto max-w-4xl mx-auto rounded-md max-h-[90vh] flex flex-col">
+        <DialogHeader className="flex-shrink-0">
+          <div className="flex flex-row gap-4 border-b-zinc-500">
+            <Image
+              className="rounded-md shadow-md max-w-100% h-auto"
+              height={300}
+              width={200}
+              src={
+                book.volumeInfo.imageLinks?.extraLarge ||
+                book.volumeInfo.imageLinks?.large ||
+                book.volumeInfo.imageLinks?.thumbnail ||
+                "/book-placeholder.gif"
+              }
+              alt={book.volumeInfo.title}
+            />
 
-          <div className="flex flex-col gap-2">
-            <TypographyH3>{book.volumeInfo.title}</TypographyH3>
-            {book.volumeInfo.authors && (
-              <TypographyMuted>
-                by {book.volumeInfo.authors?.join(", ")}
-              </TypographyMuted>
-            )}
-            {book.volumeInfo.categories && (
-              <TypographyLarge>
-                Genre: {book.volumeInfo.categories.join(", ")}
-              </TypographyLarge>
-            )}
-            <TypographySmall>{book.volumeInfo.pageCount} Pages</TypographySmall>
+            <div className="flex flex-col gap-2 text-left">
+              <TypographyH3>{book.volumeInfo.title}</TypographyH3>
+              {book.volumeInfo.authors && (
+                <TypographyMuted>
+                  by {book.volumeInfo.authors?.join(", ")}
+                </TypographyMuted>
+              )}
+              {book.volumeInfo.categories && (
+                <TypographyLarge>
+                  {"Topics: "}
+                  {book.volumeInfo.categories.join(", ")}
+                </TypographyLarge>
+              )}
+              <TypographySmall>
+                {book.volumeInfo.pageCount} Pages
+              </TypographySmall>
+            </div>
           </div>
-        </div>
-        <div className="overflow-y-scroll">
+        </DialogHeader>
+
+        <DialogDescription className="flex-grow overflow-y-auto max-h-80">
           <TypographyP>
             {book.volumeInfo.description || "No description available"}
           </TypographyP>
-        </div>
-        <div>
+        </DialogDescription>
+
+        <div className="flex-shrink-0">
           <Button className="w-full" variant="outline">
             Buy Now
           </Button>

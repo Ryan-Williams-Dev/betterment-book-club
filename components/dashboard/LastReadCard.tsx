@@ -11,6 +11,7 @@ import { TypographyMuted } from "../typography";
 import BookPreviewBlock from "../BookPreviewBlock";
 import { Progress } from "../ui/progress";
 import { Button } from "../ui/button";
+import BookInfoDialog from "../BookInfoDialog";
 
 interface LastReadCardProps {
   book: Book;
@@ -47,9 +48,14 @@ const LastReadCard: React.FC<LastReadCardProps> = ({
       </CardContent>
       <CardFooter className="flex flex-row justify-between gap-4">
         <Button className="w-full">Add Progress</Button>
-        <Button variant="outline" className="w-full">
-          More Details
-        </Button>
+        <BookInfoDialog
+          book={book}
+          triggerButton={
+            <Button variant="outline" className="w-full">
+              More Details
+            </Button>
+          }
+        />
       </CardFooter>
     </Card>
   );
