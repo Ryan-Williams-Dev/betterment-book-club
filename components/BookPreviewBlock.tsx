@@ -35,17 +35,22 @@ const BookPreviewBlock: React.FC<BookCardContentProps> = ({ book }) => {
             by {book.volumeInfo.authors?.join(", ")}
           </TypographyMuted>
 
+          {/* Create a new element that shows the books review score and shows the score out of 5 as stars. */}
+
+          <div className="flex">
+            <TypographyMuted>
+              {book.volumeInfo.averageRating
+                ? book.volumeInfo.averageRating + " / 5"
+                : "No rating"}
+            </TypographyMuted>
+          </div>
+
           <TypographySmall>
             {book.searchInfo?.textSnippet
-              ? htmlDecoder(book.searchInfo.textSnippet.substring(0, 120)) +
+              ? htmlDecoder(book.searchInfo.textSnippet.substring(0, 70)) +
                 "..."
               : "No description available"}
           </TypographySmall>
-          {/* <TypographySmall>
-            {book.volumeInfo.description
-              ? book.volumeInfo.description?.substring(0, 100) + "..."
-              : "No description available"}
-          </TypographySmall> */}
         </div>
       </div>
     </div>

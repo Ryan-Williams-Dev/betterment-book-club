@@ -14,6 +14,7 @@ export interface Book {
     language: string;
     pageCount: number;
     categories?: string[];
+    averageRating?: number;
   };
   searchInfo: {
     textSnippet: string;
