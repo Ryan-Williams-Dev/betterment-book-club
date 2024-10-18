@@ -1,5 +1,6 @@
 import BookInfoDialog from "@/components/BookInfoDialog";
 import BookPreviewBlock from "@/components/BookPreviewBlock";
+import { TypographyLarge } from "@/components/typography";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import {
@@ -36,7 +37,17 @@ const BookList: React.FC<BookListProps> = ({ books }) => {
                   </Button>
                 </TooltipTrigger>
 
-                <TooltipContent sideOffset={8}>Add to Bookshelf</TooltipContent>
+                <TooltipContent sideOffset={8}>
+                  <TypographyLarge>Add to:</TypographyLarge>
+                  <div className="flex flex-row gap-2">
+                    <Button className="w-full flex-1" variant="outline">
+                      Reading list
+                    </Button>
+                    <Button className="w-full flex-1" variant="outline">
+                      Bookshelf
+                    </Button>
+                  </div>
+                </TooltipContent>
               </Tooltip>
             </TooltipProvider>
             <BookInfoDialog
