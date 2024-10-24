@@ -1,12 +1,10 @@
-import { drizzle } from "drizzle-orm/node-postgres";
-import { Pool } from "pg";
-import { migrate } from "drizzle-orm/node-postgres/migrator";
+import { drizzle } from "drizzle-orm/neon-http";
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
-
-export const db = drizzle(pool);
+const databaseUrl = process.env.DATABASE_URL;
+if (!databaseUrl) {
+  throw new Error("DATABASE_URL is not defined");
+}
+export const db = drizzle(databaseUrl);
 
 // Optional: Run migrations on startup
-migrate(db, { migrationsFolder: "drizzle/migrations" });
+// migrate(db, { migrationsFolder: "drizzle/migrations" });
