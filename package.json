@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "drizzle-push": "dotenv -e .env.local npx drizzle-kit push"
+    "generate": "npx drizzle-kit generate",
+    "push": "npx drizzle-kit push"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -21,10 +22,9 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.2",
     "@tabler/icons-react": "^3.11.0",
-    "better-auth": "^0.5.3-beta.11",
+    "better-auth": "^0.5.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "dotenv": "^16.4.5",
     "drizzle-orm": "^0.35.3",
     "framer-motion": "^11.3.19",
     "lucide-react": "^0.414.0",
@@ -44,6 +44,7 @@
     "@types/pg": "^8.11.10",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "dotenv": "^16.4.5",
     "dotenv-cli": "^7.4.2",
     "drizzle-kit": "^0.26.2",
     "eslint": "^8",
