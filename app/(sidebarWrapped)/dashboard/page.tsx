@@ -13,6 +13,7 @@ import { Book } from "@/types/book";
 import LastReadCard from "@/components/dashboard/LastReadCard";
 import { Skeleton } from "@/components/ui/skeleton";
 import SkeletonBookCard from "@/components/SkeletonBookCard";
+import { useSession } from "@/lib/auth-client";
 
 const cardStyling =
   "flex-1 min-w-[200px] dark:hover:bg-zinc-900 hover:shadow-md";
@@ -20,6 +21,18 @@ const cardStyling =
 const DashboardPage = () => {
   const [lastRead, setLastRead] = useState<Book | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+
+  const { data: session, isPending, error } = useSession();
+
+  // Wait until isPending is is false before console logging the session data
+  // must figure this out next, getting error when fetching session
+  useEffect(() => {
+    if (!isPending) {
+      console.log(session);
+      console.log(isPending);
+      console.log(error);
+    }
+  }, [isPending, session, error]);
 
   useEffect(() => {
     const fetchBookData = async () => {
