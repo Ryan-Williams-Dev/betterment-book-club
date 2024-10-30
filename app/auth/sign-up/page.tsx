@@ -28,6 +28,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
 
+import { signIn } from "@/lib/auth-client";
+
 const formSchema = z
   .object({
     name: z
@@ -157,12 +159,26 @@ const SignUpPage = () => {
                 )}
               />
             </CardContent>
-            <CardFooter className={cn("flex gap-4")}>
-              <Button type="submit" className={cn("flex-1")}>
-                Sign Up
-              </Button>
-              <Button variant="outline" className={cn("flex-1")}>
-                Sign In
+            <CardFooter className={cn("flex flex-col gap-4")}>
+              <div className="flex flex-1 w-full gap-4">
+                <Button type="submit" className={cn("flex-1")}>
+                  Sign Up
+                </Button>
+                <Button variant="outline" className={cn("flex-1")}>
+                  Sign In
+                </Button>
+              </div>
+              <Button
+                variant="outline"
+                className={cn("w-full")}
+                onClick={async () => {
+                  await signIn.social({
+                    provider: "github",
+                    callbackURL: window.location.href,
+                  });
+                }}
+              >
+                Sign up with GitHub
               </Button>
             </CardFooter>
           </form>
