@@ -15,6 +15,8 @@ import {
   Users,
 } from "lucide-react";
 import { ModeToggle } from "./ui/mode-toggle";
+import { Button } from "./ui/button";
+import { signOut } from "@/lib/auth-client";
 
 type SidebarWrapperProps = { children: ReactNode };
 
@@ -91,6 +93,23 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
             />
 
             <ModeToggle />
+            {/* a button to log out that appears only when the sidebar is open */}
+            {open && (
+              <Button
+                variant="outline"
+                onClick={async () => {
+                  await signOut({
+                    fetchOptions: {
+                      onSuccess: () => {
+                        window.location.assign("/auth/sign-in");
+                      },
+                    },
+                  });
+                }}
+              >
+                Sign Out
+              </Button>
+            )}
           </div>
         </SidebarBody>
       </Sidebar>
