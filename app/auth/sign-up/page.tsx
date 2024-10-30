@@ -174,7 +174,7 @@ const SignUpPage = () => {
                 onClick={async () => {
                   await signIn.social({
                     provider: "github",
-                    callbackURL: window.location.href,
+                    callbackURL: "/dashboard",
                   });
                 }}
               >

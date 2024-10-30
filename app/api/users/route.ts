@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 import { db } from "@/db";
-import { users } from "@/db/schema";
+import { user } from "@/db/schema";
 
 export async function GET() {
   try {
-    const allUsers = await db.query.users.findMany();
+    const allUsers = await db.query.user.findMany();
     return NextResponse.json(allUsers);
   } catch (error) {
     console.error("Error fetching users:", error);
@@ -20,11 +20,15 @@ export async function POST(request: Request) {
     const body = await request.json();
 
     const newUser = await db
-      .insert(users)
+      .insert(user)
       .values({
-        username: body.username,
+        id: body.id, // Ensure this field is provided in the request body
+        name: body.name, // Ensure this field is provided in the request body
         email: body.email,
-        passwordHash: body.passwordHash,
+        emailVerified: body.emailVerified, // Ensure this field is provided in the request body
+        createdAt: new Date(), // Assuming you want to set the current date
+        updatedAt: new Date(), // Assuming you want to set the current date
+        image: body.image, // Optional field
       })
       .returning();
 
