@@ -21,18 +21,7 @@ const cardStyling =
 const DashboardPage = () => {
   const [lastRead, setLastRead] = useState<Book | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-
   const { data: session, isPending, error } = useSession();
-
-  // Wait until isPending is is false before console logging the session data
-  // must figure this out next, getting error when fetching session
-  useEffect(() => {
-    if (!isPending) {
-      console.log(session);
-      console.log(isPending);
-      console.log(error);
-    }
-  }, [isPending, session, error]);
 
   useEffect(() => {
     const fetchBookData = async () => {
@@ -71,10 +60,14 @@ const DashboardPage = () => {
     fetchBookData();
   }, []);
 
+  console.log("session log:", session, isPending, error);
+
   return (
     <div className="flex flex-1 flex-col max-w-7xl mx-auto p-8 gap-6">
       <TypographyH1>Dashboard</TypographyH1>
-      <TypographyH2>Welcome back, Ryan 👋</TypographyH2>
+      <TypographyH2>
+        Welcome back {session && "," + session.user.name} 👋
+      </TypographyH2>
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-7xl mx-auto">
         {loading ? (
           <>
