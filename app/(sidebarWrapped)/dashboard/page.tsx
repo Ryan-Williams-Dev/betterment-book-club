@@ -21,6 +21,7 @@ const cardStyling =
 const DashboardPage = () => {
   const [lastRead, setLastRead] = useState<Book | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+
   const { data: session, isPending, error } = useSession();
 
   useEffect(() => {
@@ -60,7 +61,9 @@ const DashboardPage = () => {
     fetchBookData();
   }, []);
 
-  console.log("session log:", session, isPending, error);
+  useEffect(() => {
+    console.log("session log:", session, isPending, error);
+  }, [session, isPending, error]);
 
   return (
     <div className="flex flex-1 flex-col max-w-7xl mx-auto p-8 gap-6">
