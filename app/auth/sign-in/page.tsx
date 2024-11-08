@@ -27,6 +27,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
+import { signIn } from "@/lib/auth-client";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please eneter a valid email address" }),
@@ -34,6 +37,9 @@ const formSchema = z.object({
 });
 
 const SignInPage = () => {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -42,8 +48,28 @@ const SignInPage = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values);
+
+    const { data, error } = await signIn.email(
+      {
+        email: values.email,
+        password: values.password,
+      },
+      {
+        onRequest: (ctx) => {
+          setLoading(true);
+        },
+        onSuccess: (ctx) => {
+          setLoading(false);
+          router.push("/dashboard");
+        },
+        onError: (ctx) => {
+          setLoading(false);
+          alert(ctx.error.message);
+        },
+      }
+    );
   };
 
   return (

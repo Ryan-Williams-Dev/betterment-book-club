@@ -28,19 +28,16 @@ import {
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
 
-import { signIn } from "@/lib/auth-client";
+import { signUp } from "@/lib/auth-client";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const formSchema = z
   .object({
     name: z
       .string()
       .min(3, { message: "Name Must be at least 3 characters." })
-      .max(30, { message: "Name must be less than 30 characters" })
-      .optional(),
-    username: z
-      .string()
-      .min(3, { message: "Username Must be at least 3 characters." })
-      .max(20, { message: "Username must be less than 20 characters" }),
+      .max(30, { message: "Name must be less than 30 characters" }),
     email: z.string().email({ message: "Please eneter a valid email address" }),
     password: z.string(),
     confirmPassword: z.string(),
@@ -51,19 +48,44 @@ const formSchema = z
   });
 
 const SignUpPage = () => {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      username: "",
       email: "",
       password: "",
       confirmPassword: "",
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values);
+
+    // call the sign up function from better-auth
+    const { data, error } = await signUp.email(
+      {
+        email: values.email,
+        password: values.password,
+        name: values.name,
+        image: undefined,
+      },
+      {
+        onRequest: (ctx) => {
+          setLoading(true);
+        },
+        onSuccess: (ctx) => {
+          setLoading(false);
+          router.push("/dashboard");
+        },
+        onError: (ctx) => {
+          setLoading(false);
+          alert(ctx.error.message);
+        },
+      }
+    );
   };
 
   return (
@@ -91,7 +113,7 @@ const SignUpPage = () => {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{"Name (optional)"}</FormLabel>
+                    <FormLabel>{"Name"}</FormLabel>
                     <FormControl>
                       <Input placeholder="John Smith" {...field} />
                     </FormControl>
@@ -99,20 +121,7 @@ const SignUpPage = () => {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="username"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Username</FormLabel>
-                    <FormControl>
-                      <Input placeholder="JSmith96" {...field} />
-                    </FormControl>
-                    <FormDescription>Your display name</FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+
               <FormField
                 control={form.control}
                 name="email"
@@ -162,13 +171,13 @@ const SignUpPage = () => {
             <CardFooter className={cn("flex flex-col gap-4")}>
               <div className="flex flex-1 w-full gap-4">
                 <Button type="submit" className={cn("flex-1")}>
-                  Sign Up
+                  {loading ? "Loading..." : "Sign Up"}
                 </Button>
                 <Button variant="outline" className={cn("flex-1")}>
                   Sign In
                 </Button>
               </div>
-              <Button
+              {/* <Button
                 variant="outline"
                 className={cn("w-full")}
                 onClick={async () => {
@@ -179,7 +188,7 @@ const SignUpPage = () => {
                 }}
               >
                 Sign up with GitHub
-              </Button>
+              </Button> */}
             </CardFooter>
           </form>
         </Form>
