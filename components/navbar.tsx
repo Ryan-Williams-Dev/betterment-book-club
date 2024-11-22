@@ -81,13 +81,13 @@ const NavBar = () => {
         </div>
         <div className="max-md:hidden flex gap-4 flex-1 justify-end">
           <Link
-            href="/auth/sign-up"
+            href="/sign-up"
             className={buttonVariants({ variant: "default" })}
           >
             Sign Up
           </Link>
           <Link
-            href="/auth/sign-in"
+            href="/sign-in"
             className={buttonVariants({ variant: "outline" })}
           >
             Sign In
@@ -119,7 +119,7 @@ const NavBar = () => {
               <DropdownMenuGroup>
                 <DropdownMenuItem className="flex-grow">
                   <Link
-                    href="/auth/sign-up"
+                    href="/sign-up"
                     className={`${buttonVariants({
                       variant: "default",
                     })} flex-1`}
@@ -130,7 +130,7 @@ const NavBar = () => {
 
                 <DropdownMenuItem className="flex-grow">
                   <Link
-                    href="/auth/sign-in"
+                    href="/sign-in"
                     className={`${buttonVariants({
                       variant: "outline",
                     })} flex-1`}
