@@ -101,7 +101,7 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
                   await signOut({
                     fetchOptions: {
                       onSuccess: () => {
-                        window.location.assign("/auth/sign-in");
+                        window.location.assign("/sign-in");
                       },
                     },
                   });

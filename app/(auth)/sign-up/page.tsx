@@ -38,8 +38,11 @@ const formSchema = z
       .string()
       .min(3, { message: "Name Must be at least 3 characters." })
       .max(30, { message: "Name must be less than 30 characters" }),
-    email: z.string().email({ message: "Please eneter a valid email address" }),
-    password: z.string(),
+    email: z.string().email({ message: "Please enter a valid email address" }),
+    password: z
+      .string()
+      .min(8, { message: "Password must be at least 8 characters." })
+      .max(16, { message: "Password must be less than 16 characters." }),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -100,7 +103,7 @@ const SignUpPage = () => {
         <CardHeader>
           <CardTitle>Sign up</CardTitle>
           <CardDescription>
-            Join the growing community of people gorwing together with the power
+            Join the growing community of people growing together with the power
             of reading and discussion!
           </CardDescription>
         </CardHeader>
@@ -140,7 +143,7 @@ const SignUpPage = () => {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>Confirm Password</FormLabel>
                     <FormControl>
                       <PasswordInput placeholder="Password" {...field} />
                     </FormControl>
@@ -167,6 +170,9 @@ const SignUpPage = () => {
                   </FormItem>
                 )}
               />
+              <Button type="submit" className={cn("flex-1")}>
+                {loading ? "Loading..." : "Sign Up"}
+              </Button>
             </CardContent>
             <CardFooter className={cn("flex flex-col gap-4")}>
               <div className="flex flex-1 w-full gap-4">
