@@ -28,9 +28,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
 
-import { signUp } from "@/lib/auth-client";
+import { signUp, signIn } from "@/lib/auth-client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Github } from "lucide-react";
 
 const formSchema = z
   .object({
@@ -183,9 +184,9 @@ const SignUpPage = () => {
                   Sign In
                 </Button>
               </div>
-              {/* <Button
+              <Button
                 variant="outline"
-                className={cn("w-full")}
+                className={cn("w-full flex items-center justify-center gap-2")}
                 onClick={async () => {
                   await signIn.social({
                     provider: "github",
@@ -193,8 +194,9 @@ const SignUpPage = () => {
                   });
                 }}
               >
+                <Github size={24} />
                 Sign up with GitHub
-              </Button> */}
+              </Button>
             </CardFooter>
           </form>
         </Form>

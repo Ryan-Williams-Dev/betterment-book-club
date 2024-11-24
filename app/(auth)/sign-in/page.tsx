@@ -30,6 +30,7 @@ import { PasswordInput } from "@/components/ui/password-input";
 import { signIn } from "@/lib/auth-client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Github } from "lucide-react";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
@@ -131,7 +132,7 @@ const SignInPage = () => {
                 {loading ? "Loading..." : "Sign In"}
               </Button>
             </CardContent>
-            <CardFooter className={cn("flex-col gap-2 items-start")}>
+            <CardFooter className={cn("flex flex-col gap-4 items-start")}>
               <TypographySmall>Forgotten your password?</TypographySmall>
               <div className="w-full flex">
                 <Button
@@ -142,6 +143,19 @@ const SignInPage = () => {
                   Reset Password
                 </Button>
               </div>
+              <Button
+                variant="outline"
+                className={cn("w-full flex items-center justify-center gap-2")}
+                onClick={async () => {
+                  await signIn.social({
+                    provider: "github",
+                    callbackURL: "/dashboard",
+                  });
+                }}
+              >
+                <Github size={24} />
+                Sign up with GitHub
+              </Button>
             </CardFooter>
           </form>
         </Form>
