@@ -34,6 +34,7 @@ import { useRouter } from "next/navigation";
 import { Github } from "lucide-react";
 import { IconBrandGoogle } from "@tabler/icons-react";
 import { Separator } from "@/components/ui/separator";
+import { useToast } from "@/hooks/use-toast";
 
 const formSchema = z
   .object({
@@ -56,6 +57,7 @@ const formSchema = z
 const SignUpPage = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -184,10 +186,31 @@ const SignUpPage = () => {
                 className={cn("w-full flex items-center justify-center gap-2")}
                 onClick={async () => {
                   setLoading(true);
-                  await signIn.social({
-                    provider: "google",
-                    callbackURL: "/dashboard",
-                  });
+                  await signIn.social(
+                    {
+                      provider: "google",
+                      callbackURL: "/dashboard",
+                    },
+                    {
+                      onRequest: (ctx) => {
+                        setLoading(true);
+                      },
+                      onSuccess: (ctx) => {
+                        setLoading(false);
+                        toast({
+                          title: "Success",
+                          description: "Redirecting to dashboard",
+                        });
+                      },
+                      onError: (ctx) => {
+                        setLoading(false);
+                        toast({
+                          title: "Error",
+                          description: ctx.error.message,
+                        });
+                      },
+                    }
+                  );
                   setLoading(false);
                 }}
               >
@@ -198,12 +221,31 @@ const SignUpPage = () => {
                 variant="outline"
                 className={cn("w-full flex items-center justify-center gap-2")}
                 onClick={async () => {
-                  setLoading(true);
-                  await signIn.social({
-                    provider: "github",
-                    callbackURL: "/dashboard",
-                  });
-                  setLoading(false);
+                  await signIn.social(
+                    {
+                      provider: "github",
+                      callbackURL: "/dashboard",
+                    },
+                    {
+                      onRequest: (ctx) => {
+                        setLoading(true);
+                      },
+                      onSuccess: (ctx) => {
+                        setLoading(false);
+                        toast({
+                          title: "Success",
+                          description: "Redirecting to dashboard",
+                        });
+                      },
+                      onError: (ctx) => {
+                        setLoading(false);
+                        toast({
+                          title: "Error",
+                          description: ctx.error.message,
+                        });
+                      },
+                    }
+                  );
                 }}
               >
                 <Github size={24} />

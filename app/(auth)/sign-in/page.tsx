@@ -33,6 +33,7 @@ import { useRouter } from "next/navigation";
 import { Github } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { IconBrandGoogle } from "@tabler/icons-react";
+import { useToast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
@@ -42,6 +43,7 @@ const formSchema = z.object({
 const SignInPage = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -141,10 +143,31 @@ const SignInPage = () => {
                 className={cn("w-full flex items-center justify-center gap-2")}
                 onClick={async () => {
                   setLoading(true);
-                  await signIn.social({
-                    provider: "google",
-                    callbackURL: "/dashboard",
-                  });
+                  await signIn.social(
+                    {
+                      provider: "google",
+                      callbackURL: "/dashboard",
+                    },
+                    {
+                      onRequest: (ctx) => {
+                        setLoading(true);
+                      },
+                      onSuccess: (ctx) => {
+                        setLoading(false);
+                        toast({
+                          title: "Success",
+                          description: "Redirecting to dashboard",
+                        });
+                      },
+                      onError: (ctx) => {
+                        setLoading(false);
+                        toast({
+                          title: "Error",
+                          description: ctx.error.message,
+                        });
+                      },
+                    }
+                  );
                   setLoading(false);
                 }}
               >
@@ -156,10 +179,31 @@ const SignInPage = () => {
                 className={cn("w-full flex items-center justify-center gap-2")}
                 onClick={async () => {
                   setLoading(true);
-                  await signIn.social({
-                    provider: "github",
-                    callbackURL: "/dashboard",
-                  });
+                  await signIn.social(
+                    {
+                      provider: "github",
+                      callbackURL: "/dashboard",
+                    },
+                    {
+                      onRequest: (ctx) => {
+                        setLoading(true);
+                      },
+                      onSuccess: (ctx) => {
+                        setLoading(false);
+                        toast({
+                          title: "Success",
+                          description: "Redirecting to dashboard",
+                        });
+                      },
+                      onError: (ctx) => {
+                        setLoading(false);
+                        toast({
+                          title: "Error",
+                          description: ctx.error.message,
+                        });
+                      },
+                    }
+                  );
                   setLoading(false);
                 }}
               >
