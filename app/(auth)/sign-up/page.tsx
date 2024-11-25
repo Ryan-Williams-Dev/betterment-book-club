@@ -1,10 +1,10 @@
 "use client";
 
-import { z } from "zod";
+import { set, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { TypographyH1 } from "@/components/typography";
+import { TypographyH1, TypographySmall } from "@/components/typography";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -32,6 +32,8 @@ import { signUp, signIn } from "@/lib/auth-client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Github } from "lucide-react";
+import { IconBrandGoogle } from "@tabler/icons-react";
+import { Separator } from "@/components/ui/separator";
 
 const formSchema = z
   .object({
@@ -171,32 +173,53 @@ const SignUpPage = () => {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className={cn("flex-1")}>
+            </CardContent>
+            <CardFooter className={cn("flex flex-col gap-4 items-start")}>
+              <Button type="submit" className={cn("flex-1 w-full")}>
                 {loading ? "Loading..." : "Sign Up"}
               </Button>
-            </CardContent>
-            <CardFooter className={cn("flex flex-col gap-4")}>
-              <div className="flex flex-1 w-full gap-4">
-                <Button type="submit" className={cn("flex-1")}>
-                  {loading ? "Loading..." : "Sign Up"}
-                </Button>
-                <Button variant="outline" className={cn("flex-1")}>
-                  Sign In
-                </Button>
-              </div>
+              <Separator />
               <Button
                 variant="outline"
                 className={cn("w-full flex items-center justify-center gap-2")}
                 onClick={async () => {
+                  setLoading(true);
+                  await signIn.social({
+                    provider: "google",
+                    callbackURL: "/dashboard",
+                  });
+                  setLoading(false);
+                }}
+              >
+                <IconBrandGoogle size={24} />
+                {loading ? "Loading..." : "Sign up with Google"}
+              </Button>
+              <Button
+                variant="outline"
+                className={cn("w-full flex items-center justify-center gap-2")}
+                onClick={async () => {
+                  setLoading(true);
                   await signIn.social({
                     provider: "github",
                     callbackURL: "/dashboard",
                   });
+                  setLoading(false);
                 }}
               >
                 <Github size={24} />
-                Sign up with GitHub
+                {loading ? "Loading..." : "Sign up with Github"}
               </Button>
+
+              <TypographySmall>
+                Already have an account?
+                <Button
+                  type="button"
+                  variant="link"
+                  className={cn("flex-1 text-foreground underline p-1")}
+                >
+                  Sign In
+                </Button>
+              </TypographySmall>
             </CardFooter>
           </form>
         </Form>
