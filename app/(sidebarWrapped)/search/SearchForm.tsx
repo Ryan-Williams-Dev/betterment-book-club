@@ -1,19 +1,26 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import React, { useState } from "react";
 
 interface SearchFormProps {
-  onSearch: (title: string, author: string, genre: string) => void;
+  onSearch: (title: string, author: string, sortBy: string) => void;
 }
 
 const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
-  const [genre, setGenre] = useState("");
+  const [sortBy, setSortBy] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSearch(title, author, genre);
+    onSearch(title, author, sortBy);
   };
 
   return (
@@ -31,11 +38,19 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
         onChange={(e) => setAuthor(e.target.value)}
         placeholder="Enter author name"
       />
-      <Input
-        value={genre}
-        onChange={(e) => setGenre(e.target.value)}
-        placeholder="Enter genre"
-      />
+      <Select onValueChange={(value) => setSortBy(value)}>
+        <SelectTrigger>
+          <SelectValue placeholder="Sort By" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="Relevance">Relevance</SelectItem>
+          <SelectItem value="Popularity">Popularity</SelectItem>
+          <SelectItem value="Rating">Rating</SelectItem>
+          <SelectItem value="Newest">Newest</SelectItem>
+          <SelectItem value="Oldest">Oldest</SelectItem>
+        </SelectContent>
+      </Select>
+
       <Button type="submit" className="lg:col-span-1">
         Search
       </Button>

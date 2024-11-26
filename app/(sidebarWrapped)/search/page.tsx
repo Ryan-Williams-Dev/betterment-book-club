@@ -9,20 +9,26 @@ const SearchPage = () => {
   const [books, setBooks] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const handleSearch = async (title: string, author: string, genre: string) => {
+  const handleSearch = async (
+    title: string,
+    author: string,
+    sortBy: string
+  ) => {
     setLoading(true);
     try {
       const titleQuery = title ? `intitle:${encodeURIComponent(title)}` : "";
       const authorQuery = author
         ? `inauthor:${encodeURIComponent(author)}`
         : "";
-      const genreQuery = genre ? `subject:${encodeURIComponent(genre)}` : "";
 
-      let queryParams = ["langRestrict=en", "printType=books"];
+      let queryParams = [
+        "langRestrict=en",
+        "printType=books",
+        `orderBy=${sortBy === "Newest" ? "newest" : "relevance"}`,
+        "maxResults=40",
+      ];
 
-      const searchQuery = [titleQuery, authorQuery, genreQuery]
-        .filter(Boolean)
-        .join("+");
+      const searchQuery = [titleQuery, authorQuery].filter(Boolean).join("+");
 
       if (searchQuery) {
         queryParams.push(`q=${searchQuery}`);
@@ -41,6 +47,8 @@ const SearchPage = () => {
     }
   };
 
+  books && console.log(books);
+
   return (
     <div className="p-8 w-full max-w-7xl mx-auto">
       <div className="mb-6">
@@ -49,6 +57,7 @@ const SearchPage = () => {
 
       <SearchForm onSearch={handleSearch} />
       <div className="mb-8 border-b"></div>
+
       {loading ? <p>Loading...</p> : <BookList books={books} />}
     </div>
   );
