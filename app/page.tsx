@@ -78,13 +78,13 @@ const LandingPage = () => {
             className="max-w-7xl py-4 px-6 flex justify-center items-center gap-6 mx-auto"
           >
             <Link
-              href="/auth/sign-up"
+              href="/sign-up"
               className={buttonVariants({ variant: "default" })}
             >
               <TypographyLarge>Try Now For Free</TypographyLarge>
             </Link>
             <Link
-              href="/auth/sign-in"
+              href="/sign-in"
               className={buttonVariants({ variant: "outline" })}
             >
               <TypographyLarge>Sign In</TypographyLarge>
