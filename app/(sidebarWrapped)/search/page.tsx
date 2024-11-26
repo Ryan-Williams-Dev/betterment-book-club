@@ -21,12 +21,7 @@ const SearchPage = () => {
         ? `inauthor:${encodeURIComponent(author)}`
         : "";
 
-      let queryParams = [
-        "langRestrict=en",
-        "printType=books",
-        `orderBy=${sortBy === "Newest" ? "newest" : "relevance"}`,
-        "maxResults=40",
-      ];
+      let queryParams = ["langRestrict=en", "printType=books", "maxResults=40"];
 
       const searchQuery = [titleQuery, authorQuery].filter(Boolean).join("+");
 
@@ -38,6 +33,35 @@ const SearchPage = () => {
 
       const fetchedBooks = await fetchBooks(queryParams, apiKey);
       const filteredBooks = filterBooksByLanguage(fetchedBooks, "en");
+
+      // Sort books by the selected option or relevance by default
+      if (sortBy) {
+        filteredBooks.sort((a, b) => {
+          if (sortBy === "Popularity") {
+            return b.volumeInfo.ratingsCount - a.volumeInfo.ratingsCount;
+          }
+
+          if (sortBy === "Rating") {
+            return b.volumeInfo.averageRating - a.volumeInfo.averageRating;
+          }
+
+          if (sortBy === "Newest") {
+            return (
+              new Date(b.volumeInfo.publishedDate).getTime() -
+              new Date(a.volumeInfo.publishedDate).getTime()
+            );
+          }
+
+          if (sortBy === "Oldest") {
+            return (
+              new Date(a.volumeInfo.publishedDate).getTime() -
+              new Date(b.volumeInfo.publishedDate).getTime()
+            );
+          }
+
+          return 0;
+        });
+      }
 
       setBooks(filteredBooks);
     } catch (error) {

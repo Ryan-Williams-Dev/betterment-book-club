@@ -2,7 +2,11 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["books.google.com"], // Add other domains if needed
+    domains: [
+      "books.google.com",
+      "avatars.githubusercontent.com",
+      "ui-avatars.com",
+    ],
   },
   webpack: (config, { isServer }) => {
     // Custom webpack configuration for handling fonts

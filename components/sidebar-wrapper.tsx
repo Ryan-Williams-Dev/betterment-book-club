@@ -16,12 +16,13 @@ import {
 } from "lucide-react";
 import { ModeToggle } from "./ui/mode-toggle";
 import { Button } from "./ui/button";
-import { signOut } from "@/lib/auth-client";
+import { signOut, useSession } from "@/lib/auth-client";
 
 type SidebarWrapperProps = { children: ReactNode };
 
 const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
   const [open, setOpen] = useState(false);
+  const { data: session, isPending, error } = useSession();
 
   const iconStyles = "";
 
@@ -78,11 +79,16 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
           >
             <SidebarLink
               link={{
-                label: "Username",
+                label: session?.user.name || "Profile",
                 href: "#",
                 icon: (
                   <Image
-                    src="/profile-pic-placeholder.jpg"
+                    src={
+                      session?.user.image ||
+                      `https://ui-avatars.com/api/?name=${
+                        session && session?.user.name.split(" ").join("+")
+                      }`
+                    }
                     className="h-7 w-7 flex-shrink-0 rounded-full"
                     width={50}
                     height={50}
