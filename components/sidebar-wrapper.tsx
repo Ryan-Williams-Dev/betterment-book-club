@@ -10,9 +10,12 @@ import {
   Book,
   LayoutDashboard,
   Library,
+  LogOut,
   MessageSquare,
   Search,
   Users,
+  LogOutIcon,
+  Settings,
 } from "lucide-react";
 import { ModeToggle } from "./ui/mode-toggle";
 import { Button } from "./ui/button";
@@ -52,6 +55,11 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
       href: "#",
       icon: <Users className={iconStyles} />,
     },
+    {
+      label: "Settings",
+      href: "#",
+      icon: <Settings className={iconStyles} />,
+    },
   ];
 
   const handleLinkClick = () => {
@@ -61,7 +69,7 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row max-w-screen flex-1 overflow-hidden h-screen">
+    <div className="flex flex-col md:flex-row max-w-screen flex-1 overflow-hidden h-screen bg-neutral-100 dark:bg-neutral-900">
       <Sidebar open={open} setOpen={setOpen}>
         <SidebarBody className="justify-between gap-10">
           <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
@@ -70,12 +78,26 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
               {links.map((link, idx) => (
                 <SidebarLink key={idx} link={link} onClick={handleLinkClick} />
               ))}
+              <SidebarLink
+                link={{
+                  label: "Logout",
+                  href: "/sign-in",
+                  icon: <LogOutIcon className={iconStyles} />,
+                }}
+                onClick={async () => {
+                  await signOut({
+                    fetchOptions: {
+                      onSuccess: () => {
+                        window.location.assign("/sign-in");
+                      },
+                    },
+                  });
+                }}
+              />
             </div>
           </div>
           <div
-            className={`flex flex-col justify-center ${
-              open ? "items-start" : "items-center"
-            } gap-2`}
+            className={`flex flex-row items-center w-full justify-between gap-2`}
           >
             <SidebarLink
               link={{
@@ -97,29 +119,13 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
                 ),
               }}
             />
-
-            <ModeToggle />
-            {/* a button to log out that appears only when the sidebar is open */}
-            {open && (
-              <Button
-                variant="outline"
-                onClick={async () => {
-                  await signOut({
-                    fetchOptions: {
-                      onSuccess: () => {
-                        window.location.assign("/sign-in");
-                      },
-                    },
-                  });
-                }}
-              >
-                Sign Out
-              </Button>
-            )}
+            {open && <ModeToggle />}
           </div>
         </SidebarBody>
       </Sidebar>
-      <div className="flex flex-1 overflow-y-auto">{children}</div>
+      <div className="flex flex-1 overflow-y-auto rounded-tl-2xl border border-neutral-200 dark:border-neutral-700 bg-background">
+        {children}
+      </div>
     </div>
   );
 };

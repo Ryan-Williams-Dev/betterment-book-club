@@ -65,9 +65,9 @@ const DashboardPage = () => {
     <div className="flex flex-1 flex-col max-w-7xl mx-auto p-8 gap-6">
       <TypographyH1>Dashboard</TypographyH1>
       <TypographyH2>
-        Welcome back{session && ", " + session.user.name} 👋
+        Welcome back{session && ", " + session.user.name.split(" ")[0]} 👋
       </TypographyH2>
-      <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-7xl mx-auto">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-7xl mx-auto ">
         {loading ? (
           <>
             <SkeletonBookCard />
