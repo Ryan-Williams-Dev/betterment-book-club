@@ -54,9 +54,10 @@ const BookList: React.FC<BookListProps> = ({ books }) => {
               book={book}
               triggerButton={
                 <Button className="w-full" variant="outline">
-                  Read More
+                  More Info
                 </Button>
               }
+              isReading
             />
           </CardFooter>
         </Card>

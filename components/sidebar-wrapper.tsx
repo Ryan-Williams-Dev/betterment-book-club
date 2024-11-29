@@ -18,7 +18,6 @@ import {
   Settings,
 } from "lucide-react";
 import { ModeToggle } from "./ui/mode-toggle";
-import { Button } from "./ui/button";
 import { signOut, useSession } from "@/lib/auth-client";
 
 type SidebarWrapperProps = { children: ReactNode };

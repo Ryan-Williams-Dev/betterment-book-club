@@ -34,7 +34,7 @@ const SearchPage = () => {
       const fetchedBooks = await fetchBooks(queryParams, apiKey);
       const filteredBooks = filterBooksByLanguage(fetchedBooks, "en");
 
-      // Sort books by the selected option or relevance by default
+      // Sort books by the selected option or relevance by default, prioritising self-help, business, and non-fiction genres
       if (sortBy) {
         filteredBooks.sort((a, b) => {
           if (sortBy === "Popularity") {

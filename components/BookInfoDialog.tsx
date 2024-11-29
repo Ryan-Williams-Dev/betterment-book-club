@@ -20,15 +20,25 @@ import {
 } from "./typography";
 import { Button } from "./ui/button";
 import { ScrollArea } from "./ui/scroll-area";
+import { Share } from "lucide-react";
 
 interface BookInfoDialogProps {
   triggerButton: ReactNode;
   book: Book;
+  isReading?: boolean;
+  onBookshelf?: boolean;
+  onReadingList?: boolean;
 }
 
 // This is a dialog that displays information about a book, I want this coponent to recieve the book object as a prop and display the book title, author, and genre in the dialog content. I want this component to take in a TriggerButton prop that will be used to open the dialog when clicked. The TriggerButton prop should be a ReactNode and will be a button component from my button component in the ui folder.
 
-const BookInfoDialog = ({ book, triggerButton }: BookInfoDialogProps) => {
+const BookInfoDialog = ({
+  book,
+  triggerButton,
+  isReading = false,
+  onBookshelf = false,
+  onReadingList = false,
+}: BookInfoDialogProps) => {
   console.log(book.volumeInfo.categories);
   return (
     <Dialog>
@@ -76,9 +86,20 @@ const BookInfoDialog = ({ book, triggerButton }: BookInfoDialogProps) => {
         </DialogDescription>
 
         <div className="flex-shrink-0">
-          <Button className="w-full" variant="outline">
-            Buy Now
-          </Button>
+          {/* If reading show progress bar, add progress, go to book discussion hub page, and share buttons */}
+          {isReading && (
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button className="w-full">Add Progress</Button>
+              <Button className="w-full" variant="outline">
+                Go to Discussion
+              </Button>
+              <Button className="" variant="outline">
+                <Share />
+              </Button>
+            </div>
+          )}
+
+          {/* If in user bookshelf show remove from bookshelf button */}
         </div>
       </DialogContent>
     </Dialog>

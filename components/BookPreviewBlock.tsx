@@ -32,7 +32,11 @@ const BookPreviewBlock: React.FC<BookCardContentProps> = ({ book }) => {
               : book.volumeInfo.title}
           </TypographyH4>
           <TypographyMuted>
-            by {book.volumeInfo.authors?.join(", ")}
+            by{" "}
+            {book.volumeInfo.authors &&
+            book.volumeInfo.authors.join(", ").length > 30
+              ? book.volumeInfo.authors.join(", ").substring(0, 30) + "..."
+              : book.volumeInfo.authors?.join(", ")}{" "}
           </TypographyMuted>
 
           {/* Create a new element that shows the books review score and shows the score out of 5 as stars. */}
