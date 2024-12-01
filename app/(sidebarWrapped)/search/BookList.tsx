@@ -19,7 +19,7 @@ interface BookListProps {
 
 const BookList: React.FC<BookListProps> = ({ books }) => {
   return (
-    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <ul className="grid grid-cols-[repeat(auto-fit,minmax(310px,1fr))] gap-4">
       {books.map((book) => (
         <Card
           key={book.id}
