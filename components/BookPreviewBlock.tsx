@@ -3,6 +3,7 @@ import { TypographyH4, TypographyMuted, TypographySmall } from "./typography";
 import Image from "next/image";
 import { Book } from "@/types/book";
 import htmlDecoder from "@/utils/htmlDecoder";
+import { generateStars } from "@/lib/utils";
 
 interface BookCardContentProps {
   book: Book;
@@ -42,11 +43,11 @@ const BookPreviewBlock: React.FC<BookCardContentProps> = ({ book }) => {
           {/* Create a new element that shows the books review score and shows the score out of 5 as stars. */}
 
           <div className="flex">
-            <TypographyMuted>
-              {book.volumeInfo.averageRating
-                ? book.volumeInfo.averageRating + " / 5"
-                : "No rating"}
-            </TypographyMuted>
+            {book.volumeInfo.averageRating ? (
+              generateStars(book.volumeInfo.averageRating)
+            ) : (
+              <TypographyMuted>No rating</TypographyMuted>
+            )}
           </div>
 
           <TypographySmall>
