@@ -70,8 +70,6 @@ const SignUpPage = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-
     // call the sign up function from better-auth
     const { data, error } = await signUp.email(
       {

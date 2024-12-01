@@ -30,8 +30,6 @@ interface BookInfoDialogProps {
   onReadingList?: boolean;
 }
 
-// This is a dialog that displays information about a book, I want this coponent to recieve the book object as a prop and display the book title, author, and genre in the dialog content. I want this component to take in a TriggerButton prop that will be used to open the dialog when clicked. The TriggerButton prop should be a ReactNode and will be a button component from my button component in the ui folder.
-
 const BookInfoDialog = ({
   book,
   triggerButton,
@@ -39,7 +37,6 @@ const BookInfoDialog = ({
   onBookshelf = false,
   onReadingList = false,
 }: BookInfoDialogProps) => {
-  console.log(book.volumeInfo.categories);
   return (
     <Dialog>
       <DialogTrigger className="w-full">{triggerButton}</DialogTrigger>

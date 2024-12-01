@@ -75,7 +75,12 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
             {open ? <Logo /> : <LogoIcon />}
             <div className="mt-8 flex flex-col gap-2">
               {links.map((link, idx) => (
-                <SidebarLink key={idx} link={link} onClick={handleLinkClick} />
+                <SidebarLink
+                  key={idx}
+                  link={link}
+                  onClick={handleLinkClick}
+                  isCurrentPage={link.href === window.location.pathname}
+                />
               ))}
               <SidebarLink
                 link={{
@@ -130,7 +135,7 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
           </div>
         </SidebarBody>
       </Sidebar>
-      <div className="flex flex-1 overflow-y-auto rounded-tl-2xl border border-neutral-200 dark:border-neutral-700 bg-background">
+      <div className="flex flex-1 overflow-y-auto rounded-tl-2xl mt-2 border border-neutral-200 dark:border-neutral-700 bg-background">
         {children}
       </div>
     </div>

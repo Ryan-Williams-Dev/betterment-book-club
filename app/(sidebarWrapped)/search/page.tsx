@@ -5,6 +5,39 @@ import { fetchBooks, filterBooksByLanguage } from "./api";
 import SearchForm from "./SearchForm";
 import BookList from "./BookList";
 
+const selfHelpGenres = [
+  "Self-Help",
+  "Personal Growth",
+  "Motivational",
+  "Inspirational",
+  "Psychology",
+  "Productivity",
+  "Relationships",
+  "Business & Economics",
+  "Leadership",
+  "Health & Fitness",
+  "Mindfulness",
+  "Philosophy",
+  "Spirituality",
+  "Happiness",
+  "Success",
+  "Habits",
+  "Time Management",
+  "Career Development",
+  "Mental Health",
+  "Emotional Intelligence",
+  "Meditation",
+  "Stress Management",
+  "Decision-Making",
+  "Life Skills",
+  "Behavioral Science",
+  "Creativity",
+  "Problem Solving",
+  "Goal Setting",
+  "Communication Skills",
+  "Conflict Resolution",
+];
+
 const SearchPage = () => {
   const [books, setBooks] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
@@ -32,36 +65,50 @@ const SearchPage = () => {
       const apiKey = process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY || "";
 
       const fetchedBooks = await fetchBooks(queryParams, apiKey);
-      const filteredBooks = filterBooksByLanguage(fetchedBooks, "en");
+      let filteredBooks = filterBooksByLanguage(fetchedBooks, "en");
 
-      // Sort books by the selected option or relevance by default, prioritising self-help, business, and non-fiction genres
-      if (sortBy) {
-        filteredBooks.sort((a, b) => {
-          if (sortBy === "Popularity") {
-            return b.volumeInfo.ratingsCount - a.volumeInfo.ratingsCount;
-          }
+      filteredBooks.sort((a, b) => {
+        // Prioritize self-help genres
+        const aIsSelfHelp = a.volumeInfo.categories?.some((category: string) =>
+          selfHelpGenres.includes(category)
+        );
+        const bIsSelfHelp = b.volumeInfo.categories?.some((category: string) =>
+          selfHelpGenres.includes(category)
+        );
 
-          if (sortBy === "Rating") {
-            return b.volumeInfo.averageRating - a.volumeInfo.averageRating;
-          }
+        if (aIsSelfHelp && !bIsSelfHelp) return -1;
+        if (!aIsSelfHelp && bIsSelfHelp) return 1;
 
-          if (sortBy === "Newest") {
-            return (
-              new Date(b.volumeInfo.publishedDate).getTime() -
-              new Date(a.volumeInfo.publishedDate).getTime()
-            );
-          }
+        // Sort books by the selected option or relevance by default, prioritising self-help, business, and non-fiction genres
+        if (sortBy === "Popularity") {
+          return (
+            (b.volumeInfo.ratingsCount || 0) - (a.volumeInfo.ratingsCount || 0)
+          );
+        }
 
-          if (sortBy === "Oldest") {
-            return (
-              new Date(a.volumeInfo.publishedDate).getTime() -
-              new Date(b.volumeInfo.publishedDate).getTime()
-            );
-          }
+        if (sortBy === "Rating") {
+          return (
+            (b.volumeInfo.averageRating || 0) -
+            (a.volumeInfo.averageRating || 0)
+          );
+        }
 
-          return 0;
-        });
-      }
+        if (sortBy === "Newest") {
+          return (
+            new Date(b.volumeInfo.publishedDate).getTime() -
+            new Date(a.volumeInfo.publishedDate).getTime()
+          );
+        }
+
+        if (sortBy === "Oldest") {
+          return (
+            new Date(a.volumeInfo.publishedDate).getTime() -
+            new Date(b.volumeInfo.publishedDate).getTime()
+          );
+        }
+
+        return 0;
+      });
 
       setBooks(filteredBooks);
     } catch (error) {
@@ -70,8 +117,6 @@ const SearchPage = () => {
       setLoading(false);
     }
   };
-
-  books && console.log(books);
 
   return (
     <div className="p-8 w-full max-w-7xl mx-auto">
