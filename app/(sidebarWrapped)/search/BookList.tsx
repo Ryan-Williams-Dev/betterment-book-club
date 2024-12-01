@@ -23,7 +23,7 @@ const BookList: React.FC<BookListProps> = ({ books }) => {
       {books.map((book) => (
         <Card
           key={book.id}
-          className="min-w-[200px] min-h-24 dark:hover:bg-zinc-900 hover:shadow-md pt-8 flex flex-col"
+          className="min-w-[200px] min-h-24 pt-8 flex flex-col"
         >
           <CardContent className="flex flex-row">
             <BookPreviewBlock book={book} />

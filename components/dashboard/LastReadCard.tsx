@@ -25,7 +25,7 @@ const LastReadCard: React.FC<LastReadCardProps> = ({
   const progress = Math.round((pageNumber / book.volumeInfo.pageCount) * 100);
 
   return (
-    <Card className="flex-1 min-w-[200px] dark:hover:bg-zinc-900 hover:shadow-md">
+    <Card className="flex-1 min-w-[200px]">
       <CardHeader>
         <CardTitle>Last Read</CardTitle>
       </CardHeader>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 import Link from "next/link";
@@ -19,10 +19,12 @@ import {
 } from "lucide-react";
 import { ModeToggle } from "./ui/mode-toggle";
 import { signOut, useSession } from "@/lib/auth-client";
+import path from "path";
 
 type SidebarWrapperProps = { children: ReactNode };
 
 const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
+  const [currentPage, setCurrentPage] = useState(window.location.pathname);
   const [open, setOpen] = useState(false);
   const { data: session, isPending, error } = useSession();
 
@@ -61,10 +63,13 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
     },
   ];
 
-  const handleLinkClick = () => {
+  const handleLinkClick = (pathName: string) => {
     if (window.innerWidth < 768) {
       setOpen(false);
     }
+
+    // set currentPage to whichever link was clicked
+    setCurrentPage(pathName);
   };
 
   return (
@@ -78,8 +83,8 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
                 <SidebarLink
                   key={idx}
                   link={link}
-                  onClick={handleLinkClick}
-                  isCurrentPage={link.href === window.location.pathname}
+                  onClick={() => handleLinkClick(link.href)}
+                  isCurrentPage={currentPage === link.href}
                 />
               ))}
               <SidebarLink

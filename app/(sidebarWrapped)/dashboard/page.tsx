@@ -15,8 +15,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import SkeletonBookCard from "@/components/SkeletonBookCard";
 import { useSession } from "@/lib/auth-client";
 
-const cardStyling =
-  "flex-1 min-w-[200px] dark:hover:bg-zinc-900 hover:shadow-md";
+const cardStyling = "flex-1 min-w-[200px]";
 
 const DashboardPage = () => {
   const [lastRead, setLastRead] = useState<Book | null>(null);

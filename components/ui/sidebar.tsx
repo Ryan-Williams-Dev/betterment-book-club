@@ -175,7 +175,7 @@ export const SidebarLink = ({
     <Link
       href={link.href}
       className={cn(
-        "flex items-center justify-start gap-2 group/sidebar py-2",
+        "flex items-center justify-start gap-2 group/sidebar py-2 ",
         className,
         open && "px-2",
         isCurrentPage && open && "bg-neutral-200 dark:bg-neutral-800 rounded-md"
@@ -191,7 +191,8 @@ export const SidebarLink = ({
           opacity: animate ? (open ? 1 : 0) : 1,
         }}
         className={`text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0 ${
-          isCurrentPage && "font-extrabold"
+          isCurrentPage &&
+          "font-extrabold text-neutral-800 dark:text-neutral-100"
         }`}
       >
         {link.label}
