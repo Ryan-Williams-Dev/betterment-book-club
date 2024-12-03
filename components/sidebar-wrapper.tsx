@@ -10,7 +10,6 @@ import {
   Book,
   LayoutDashboard,
   Library,
-  LogOut,
   MessageSquare,
   Search,
   Users,
@@ -19,7 +18,6 @@ import {
 } from "lucide-react";
 import { ModeToggle } from "./ui/mode-toggle";
 import { signOut, useSession } from "@/lib/auth-client";
-import path from "path";
 
 type SidebarWrapperProps = { children: ReactNode };
 
@@ -35,31 +33,37 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
       label: "Dashboard",
       href: "/dashboard",
       icon: <LayoutDashboard className={iconStyles} />,
+      keyboardShortcut: "D",
     },
     {
       label: "Search Books",
       href: "/search",
       icon: <Search className={iconStyles} />,
+      keyboardShortcut: "S",
     },
     {
-      label: "My Bookshelf",
+      label: "Library",
       href: "#",
       icon: <Library className={iconStyles} />,
+      keyboardShortcut: "L",
     },
     {
-      label: "Discussion",
+      label: "Community",
       href: "#",
       icon: <MessageSquare className={iconStyles} />,
+      keyboardShortcut: "C",
     },
     {
-      label: "My Groups",
+      label: "Groups",
       href: "#",
       icon: <Users className={iconStyles} />,
+      keyboardShortcut: "G",
     },
     {
       label: "Settings",
       href: "#",
       icon: <Settings className={iconStyles} />,
+      keyboardShortcut: "S",
     },
   ];
 
@@ -92,6 +96,7 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
                   label: "Logout",
                   href: "/sign-in",
                   icon: <LogOutIcon className={iconStyles} />,
+                  keyboardShortcut: "L",
                 }}
                 onClick={async () => {
                   await signOut({
@@ -140,7 +145,7 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
           </div>
         </SidebarBody>
       </Sidebar>
-      <div className="flex flex-1 overflow-y-auto rounded-tl-2xl mt-2 border border-neutral-200 dark:border-neutral-700 bg-background">
+      <div className="flex flex-1 overflow-y-auto rounded-tl-2xl mt-2 border-t border-l border-neutral-200 dark:border-neutral-700 bg-background">
         {children}
       </div>
     </div>

@@ -35,3 +35,29 @@ export const generateStars = (rating: number) => {
   }
   return stars;
 };
+
+// Takes in a character as an arguement and makes a string to show the keyboard shortcut for that link, dpending on the OS, shift + cmd/ctrl + the character passed in
+
+export const generateKeyboardShortcut = (character: string) => {
+  let os = getOperatingSystem();
+
+  if (os === "Mobile") {
+    return "";
+  }
+
+  if (navigator.platform.includes("Mac")) {
+    return `⇧⌘${character.toUpperCase()}`;
+  } else {
+    return `⇧Ctrl${character.toUpperCase()}`;
+  }
+};
+
+const getOperatingSystem = () => {
+  const platform = navigator.platform.toLowerCase();
+  const userAgent = navigator.userAgent.toLowerCase();
+
+  if (platform.includes("mac") || userAgent.includes("mac")) return "Mac";
+  if (platform.includes("win") || userAgent.includes("win")) return "Windows";
+  if (/android|iphone|ipad|ipod/i.test(userAgent)) return "Mobile";
+  return "Other";
+};

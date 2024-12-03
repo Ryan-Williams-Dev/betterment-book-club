@@ -61,7 +61,7 @@ const DashboardPage = () => {
   }, []);
 
   return (
-    <div className="flex flex-1 flex-col max-w-7xl mx-auto p-8 gap-6">
+    <div className="flex flex-1 flex-col max-w-7xl mx-auto py-6 px-8 gap-6">
       <TypographyH1>Dashboard</TypographyH1>
       <TypographyH2>
         Welcome back{session && ", " + session.user.name.split(" ")[0]} 👋

@@ -1,5 +1,5 @@
 "use client";
-import { cn } from "@/lib/utils";
+import { cn, generateKeyboardShortcut } from "@/lib/utils";
 import Link, { LinkProps } from "next/link";
 import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -10,6 +10,7 @@ interface Links {
   label: string;
   href: string;
   icon: React.JSX.Element | React.ReactNode;
+  keyboardShortcut?: string;
 }
 
 interface SidebarContextProps {
@@ -175,7 +176,7 @@ export const SidebarLink = ({
     <Link
       href={link.href}
       className={cn(
-        "flex items-center justify-start gap-2 group/sidebar py-2 ",
+        "flex items-center justify-start gap-2 group/sidebar py-2 relative",
         className,
         open && "px-2",
         isCurrentPage && open && "bg-neutral-200 dark:bg-neutral-800 rounded-md"
@@ -197,6 +198,23 @@ export const SidebarLink = ({
       >
         {link.label}
       </motion.span>
+
+      {/* if not on mobile, generate the keyboard shortcut and display it at the end */}
+      {link.keyboardShortcut && !isCurrentPage && (
+        <motion.span
+          animate={{
+            display: animate
+              ? open
+                ? "inline-block"
+                : "none"
+              : "inline-block",
+            opacity: animate ? (open ? 1 : 0) : 1,
+          }}
+          className={`text-neutral-500 dark:text-neutral-400 text-xs group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre absolute right-2`}
+        >
+          {generateKeyboardShortcut(link.keyboardShortcut[0])}
+        </motion.span>
+      )}
     </Link>
   );
 };
