@@ -148,7 +148,7 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
           </div>
         </SidebarBody>
       </Sidebar>
-      <div className="flex flex-1 overflow-y-auto rounded-tl-2xl mt-2 border-t border-l border-neutral-200 dark:border-neutral-700 bg-background">
+      <div className="flex flex-1 overflow-y-auto rounded-tl-2xl border-t border-l border-neutral-200 dark:border-neutral-700 bg-background">
         {children}
       </div>
     </div>

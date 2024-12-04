@@ -3,14 +3,7 @@ import BookPreviewBlock from "@/components/BookPreviewBlock";
 import { TypographyLarge } from "@/components/typography";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { Book } from "@/types/book";
-import { Plus } from "lucide-react";
 import React from "react";
 
 interface BookListProps {
@@ -28,37 +21,19 @@ const BookList: React.FC<BookListProps> = ({ books }) => {
           <CardContent className="flex flex-row">
             <BookPreviewBlock book={book} />
           </CardContent>
-          <CardFooter className="gap-4 mt-auto">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Button className="">
-                    <Plus size={24} />
+          <CardFooter className="gap-4 flex mt-auto">
+            <Button className="flex-1 w-full">Add to Library</Button>
+            <div className="flex-1 w-full">
+              <BookInfoDialog
+                book={book}
+                triggerButton={
+                  <Button className="flex-1 w-full" variant="outline">
+                    More Info
                   </Button>
-                </TooltipTrigger>
-
-                <TooltipContent sideOffset={8}>
-                  <TypographyLarge>Add to:</TypographyLarge>
-                  <div className="flex flex-row gap-2">
-                    <Button className="w-full flex-1" variant="outline">
-                      Reading list
-                    </Button>
-                    <Button className="w-full flex-1" variant="outline">
-                      Bookshelf
-                    </Button>
-                  </div>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <BookInfoDialog
-              book={book}
-              triggerButton={
-                <Button className="w-full" variant="outline">
-                  More Info
-                </Button>
-              }
-              isReading
-            />
+                }
+                isReading
+              />
+            </div>
           </CardFooter>
         </Card>
       ))}

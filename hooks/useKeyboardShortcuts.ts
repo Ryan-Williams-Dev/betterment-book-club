@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { set } from "zod";
 
 interface UseKeyboardShortcutsProps {
   setCurrentPage: (page: string) => void;
@@ -24,7 +23,6 @@ const useKeyboardShortcuts = ({
         setCurrentPage("/dashboard"); // Update the current page state
       }
 
-      // Add shortcut for search page
       if (
         (event.metaKey || event.ctrlKey) &&
         event.shiftKey &&
