@@ -21,13 +21,13 @@ const BookList: React.FC<BookListProps> = ({ books }) => {
           <CardContent className="flex flex-row">
             <BookPreviewBlock book={book} />
           </CardContent>
-          <CardFooter className="gap-4 flex mt-auto">
-            <Button className="flex-1 w-full">Add to Library</Button>
-            <div className="flex-1 w-full">
+          <CardFooter className="gap-4 flex w-full mt-auto">
+            <Button className="flex-1">Add to Library</Button>
+            <div className="flex-1">
               <BookInfoDialog
                 book={book}
                 triggerButton={
-                  <Button className="flex-1 w-full" variant="outline">
+                  <Button className="w-full" variant="outline">
                     More Info
                   </Button>
                 }

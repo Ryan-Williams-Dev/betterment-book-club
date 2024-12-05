@@ -46,3 +46,18 @@ export const verification = pgTable("verification", {
   value: text("value").notNull(),
   expiresAt: timestamp("expiresAt").notNull(),
 });
+
+// userLibrary schema
+export const userLibrary = pgTable("userLibrary", {
+  id: text("id").primaryKey(),
+  userId: text("userId")
+    .notNull()
+    .references(() => user.id),
+  bookId: text("bookId").notNull(),
+  isbn: text("isbn").notNull().unique(),
+  isReading: boolean("isReading").notNull().default(false),
+  isFinished: boolean("isFinished").notNull().default(false),
+  currentPage: integer("currentPage").notNull().default(0),
+  createdAt: timestamp("createdAt").notNull(),
+  updatedAt: timestamp("updatedAt").notNull(),
+});
