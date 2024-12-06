@@ -1,6 +1,7 @@
+"use client";
+
 import BookInfoDialog from "@/components/BookInfoDialog";
 import BookPreviewBlock from "@/components/BookPreviewBlock";
-import { TypographyLarge } from "@/components/typography";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Book } from "@/types/book";
@@ -9,6 +10,26 @@ import React from "react";
 interface BookListProps {
   books: Book[];
 }
+
+const handleAddToLibrary = async (book: Book) => {
+  const response = await fetch("/api/library/add", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      userId: "1",
+      bookId: book.id,
+      isbn: book.volumeInfo.isbn,
+    }),
+  });
+
+  if (response.ok) {
+    alert("Book added to library.");
+  } else {
+    alert("Failed to add book to library.");
+  }
+};
 
 const BookList: React.FC<BookListProps> = ({ books }) => {
   return (
@@ -22,7 +43,9 @@ const BookList: React.FC<BookListProps> = ({ books }) => {
             <BookPreviewBlock book={book} />
           </CardContent>
           <CardFooter className="gap-4 flex w-full mt-auto">
-            <Button className="flex-1">Add to Library</Button>
+            <Button className="flex-1" onClick={() => handleAddToLibrary(book)}>
+              Add to Library
+            </Button>
             <div className="flex-1">
               <BookInfoDialog
                 book={book}

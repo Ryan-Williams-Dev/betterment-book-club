@@ -15,6 +15,9 @@ export interface Book {
     pageCount: number;
     categories?: string[];
     averageRating?: number;
+    ratingsCount?: number;
+    publisher: string;
+    isbn: string;
   };
   searchInfo: {
     textSnippet: string;
