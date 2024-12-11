@@ -1,26 +1,16 @@
-// pages/api/library/add.ts
-import { db } from "@/db";
-import { userLibrary } from "@/db/schema";
+"use server";
 
-export default async function handler(req, res) {
-  if (req.method === "POST") {
-    const { userId, bookId, isbn } = req.body;
+import { eq, not } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
+import { user, userLibrary } from "@/db/schema";
+import { db } from "@/db/index";
 
-    try {
-      await db.insert(userLibrary).values({
-        id: crypto.randomUUID(),
-        userId,
-        bookId,
-        isbn,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      });
-      res.status(201).json({ message: "Book added to library." });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to add book to library." });
-    }
-  } else {
-    res.status(405).json({ message: "Method not allowed." });
-  }
-}
+export const addBook = async (userId: string, isbn: string) => {
+  await db
+    .insert(userLibrary)
+    .values({
+      userId,
+      isbn,
+    })
+    .returning({ id: userLibrary.id });
+};
