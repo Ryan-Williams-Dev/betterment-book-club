@@ -50,7 +50,7 @@ export const verification = pgTable("verification", {
 
 // userLibrary schema
 export const userLibrary = pgTable("user_library", {
-  id: serial("id").primaryKey().notNull(),
+  id: text("id").primaryKey().notNull(),
   userId: text("user_id")
     .notNull()
     .references(() => user.id),

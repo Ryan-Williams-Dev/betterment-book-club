@@ -17,7 +17,10 @@ export interface Book {
     averageRating?: number;
     ratingsCount?: number;
     publisher: string;
-    isbn: string;
+    industryIdentifiers: {
+      type: string;
+      identifier: string;
+    }[];
   };
   searchInfo: {
     textSnippet: string;

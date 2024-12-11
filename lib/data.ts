@@ -177,3 +177,36 @@ const shuffleArray = (array: any) => {
   return array;
 };
 export const shuffledQuotes = shuffleArray(quotes);
+
+export const selfHelpGenres = [
+  "Self-Help",
+  "Personal Growth",
+  "Motivational",
+  "Inspirational",
+  "Psychology",
+  "Productivity",
+  "Relationships",
+  "Business & Economics",
+  "Leadership",
+  "Health & Fitness",
+  "Mindfulness",
+  "Philosophy",
+  "Spirituality",
+  "Happiness",
+  "Success",
+  "Habits",
+  "Time Management",
+  "Career Development",
+  "Mental Health",
+  "Emotional Intelligence",
+  "Meditation",
+  "Stress Management",
+  "Decision-Making",
+  "Life Skills",
+  "Behavioral Science",
+  "Creativity",
+  "Problem Solving",
+  "Goal Setting",
+  "Communication Skills",
+  "Conflict Resolution",
+];

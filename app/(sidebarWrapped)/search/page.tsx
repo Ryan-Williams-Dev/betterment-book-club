@@ -4,39 +4,7 @@ import { TypographyH1, TypographyH2 } from "@/components/typography";
 import { fetchBooks, filterBooksByLanguage } from "./api";
 import SearchForm from "./SearchForm";
 import BookList from "./BookList";
-
-const selfHelpGenres = [
-  "Self-Help",
-  "Personal Growth",
-  "Motivational",
-  "Inspirational",
-  "Psychology",
-  "Productivity",
-  "Relationships",
-  "Business & Economics",
-  "Leadership",
-  "Health & Fitness",
-  "Mindfulness",
-  "Philosophy",
-  "Spirituality",
-  "Happiness",
-  "Success",
-  "Habits",
-  "Time Management",
-  "Career Development",
-  "Mental Health",
-  "Emotional Intelligence",
-  "Meditation",
-  "Stress Management",
-  "Decision-Making",
-  "Life Skills",
-  "Behavioral Science",
-  "Creativity",
-  "Problem Solving",
-  "Goal Setting",
-  "Communication Skills",
-  "Conflict Resolution",
-];
+import { selfHelpGenres } from "@/lib/data";
 
 const SearchPage = () => {
   const [books, setBooks] = useState<any[]>([]);
