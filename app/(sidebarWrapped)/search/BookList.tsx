@@ -23,8 +23,7 @@ const BookList: React.FC<BookListProps> = ({ books }) => {
       },
       body: JSON.stringify({
         userId: session?.user.id,
-        bookId: book.id,
-        isbn: book.volumeInfo.industryIdentifiers.find(
+        isbn: book.volumeInfo.industryIdentifiers?.find(
           (identifier) => identifier.type === "ISBN_13"
         )?.identifier,
       }),

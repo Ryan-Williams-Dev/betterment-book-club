@@ -1,49 +1,36 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import { addBookToLibrary } from "@/lib/addBookToLibrary";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  switch (req.method) {
-    case "POST":
-      return handlePost(req, res);
-    case "GET":
-      return handleGet(req, res);
-    case "PUT":
-      return handlePut(req, res);
-    case "DELETE":
-      return handleDelete(req, res);
-    default:
-      res.setHeader("Allow", ["POST", "GET", "PUT", "DELETE"]);
-      return res.status(405).end(`Method ${req.method} Not Allowed`);
-  }
-}
-
-async function handlePost(req: NextApiRequest, res: NextApiResponse) {
-  const { userId, isbn } = req.body;
+export async function POST(req: NextRequest) {
+  const { userId, isbn } = await req.json();
 
   if (!userId || !isbn) {
-    return res.status(400).json({ error: "Missing userId or isbn" });
+    return NextResponse.json(
+      { error: "Missing userId or isbn" },
+      { status: 400 }
+    );
   }
 
   try {
     const result = await addBookToLibrary(userId, isbn);
-    return res.status(200).json(result);
+    return NextResponse.json(result, { status: 200 });
   } catch (error) {
     console.error("Error adding book to library:", error);
-    return res.status(500).json({ error: "Failed to add book to library" });
+    return NextResponse.json(
+      { error: "Failed to add book to library" },
+      { status: 500 }
+    );
   }
 }
 
-async function handleGet(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: NextRequest) {
   // Implement GET request handling
 }
 
-async function handlePut(req: NextApiRequest, res: NextApiResponse) {
+export async function PUT(req: NextRequest) {
   // Implement PUT request handling
 }
 
-async function handleDelete(req: NextApiRequest, res: NextApiResponse) {
+export async function DELETE(req: NextRequest) {
   // Implement DELETE request handling
 }
