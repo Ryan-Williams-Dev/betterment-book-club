@@ -35,6 +35,13 @@ const SearchPage = () => {
       const fetchedBooks = await fetchBooks(queryParams, apiKey);
       let filteredBooks = filterBooksByLanguage(fetchedBooks, "en");
 
+      // if there is no isbn, remove the book from the list
+      filteredBooks = filteredBooks.filter(
+        (book) =>
+          book.volumeInfo.industryIdentifiers &&
+          book.volumeInfo.industryIdentifiers.length
+      );
+
       filteredBooks.sort((a, b) => {
         // Prioritize self-help genres
         const aIsSelfHelp = a.volumeInfo.categories?.some((category: string) =>
