@@ -15,6 +15,13 @@
       "when": 1733943561391,
       "tag": "0001_concerned_the_phantom",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1734113751431,
+      "tag": "0002_messy_goblin_queen",
+      "breakpoints": true
     }
   ]
 }

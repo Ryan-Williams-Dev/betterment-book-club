@@ -5,6 +5,8 @@ import {
   timestamp,
   serial,
   integer,
+  varchar,
+  unique,
 } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
@@ -49,15 +51,23 @@ export const verification = pgTable("verification", {
 });
 
 // userLibrary schema
-export const userLibrary = pgTable("user_library", {
-  id: text("id").primaryKey().notNull(),
-  userId: text("user_id")
-    .notNull()
-    .references(() => user.id),
-  isbn: text("isbn").notNull(),
-  isReading: boolean("is_reading").notNull().default(false),
-  isFinished: boolean("is_finished").notNull().default(false),
-  currentPage: integer("current_page").notNull().default(0),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-});
+export const userLibrary = pgTable(
+  "user_library",
+  {
+    id: text("id").primaryKey().notNull(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id),
+    isbn: varchar("isbn", { length: 13 }).notNull(),
+    isReading: boolean("is_reading").notNull().default(false),
+    isFinished: boolean("is_finished").notNull().default(false),
+    currentPage: integer("current_page").notNull().default(0),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  },
+  (table) => {
+    return {
+      uniqueUserBook: unique().on(table.userId, table.isbn),
+    };
+  }
+);

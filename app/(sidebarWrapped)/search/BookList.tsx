@@ -4,6 +4,8 @@ import BookInfoDialog from "@/components/BookInfoDialog";
 import BookPreviewBlock from "@/components/BookPreviewBlock";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { useToast } from "@/hooks/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 import { useSession } from "@/lib/auth-client";
 import { Book } from "@/types/book";
 import React from "react";
@@ -14,6 +16,7 @@ interface BookListProps {
 
 const BookList: React.FC<BookListProps> = ({ books }) => {
   const { data: session, isPending, error } = useSession();
+  const { toast } = useToast();
 
   const handleAddToLibrary = async (book: Book) => {
     const response = await fetch("/api/library", {
@@ -23,16 +26,31 @@ const BookList: React.FC<BookListProps> = ({ books }) => {
       },
       body: JSON.stringify({
         userId: session?.user.id,
-        isbn: book.volumeInfo.industryIdentifiers?.find(
+        isbn: book.volumeInfo.industryIdentifiers.find(
           (identifier) => identifier.type === "ISBN_13"
         )?.identifier,
       }),
     });
 
     if (response.ok) {
-      alert("Book added to library.");
+      toast({
+        title: "Book added to library",
+        action: (
+          <ToastAction
+            altText="Go to library"
+            onClick={() => {
+              // Navigate to library
+            }}
+          >
+            View Library
+          </ToastAction>
+        ),
+      });
     } else {
-      alert("Failed to add book to library.");
+      toast({
+        title: "Error",
+        description: (await response.json()).error,
+      });
     }
   };
 
