@@ -39,6 +39,10 @@ export const generateStars = (rating: number) => {
 // Takes in a character as an arguement and makes a string to show the keyboard shortcut for that link, dpending on the OS, shift + cmd/ctrl + the character passed in
 
 export const generateKeyboardShortcut = (character: string) => {
+  if (typeof navigator === "undefined") {
+    return "";
+  }
+
   let os = getOperatingSystem();
 
   if (os === "Mobile") {
@@ -53,6 +57,10 @@ export const generateKeyboardShortcut = (character: string) => {
 };
 
 const getOperatingSystem = () => {
+  if (typeof navigator === "undefined") {
+    return "Other";
+  }
+
   const platform = navigator.platform.toLowerCase();
   const userAgent = navigator.userAgent.toLowerCase();
 
