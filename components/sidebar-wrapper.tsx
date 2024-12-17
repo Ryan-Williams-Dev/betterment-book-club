@@ -23,9 +23,15 @@ import useKeyboardShortcuts from "@/hooks/useKeyboardShortcuts";
 type SidebarWrapperProps = { children: ReactNode };
 
 const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
-  const [currentPage, setCurrentPage] = useState(window.location.pathname);
+  const [currentPage, setCurrentPage] = useState("");
   const [open, setOpen] = useState(false);
   const { data: session, isPending, error } = useSession();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setCurrentPage(window.location.pathname);
+    }
+  }, []);
 
   useKeyboardShortcuts({ setCurrentPage });
 
@@ -46,7 +52,7 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
     },
     {
       label: "Library",
-      href: "#",
+      href: "/library",
       icon: <Library className={iconStyles} />,
       keyboardShortcut: "L",
     },
