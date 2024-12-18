@@ -14,6 +14,10 @@ export const addBookToLibrary = async (userId: string, isbn: string) => {
 
     return result;
   } catch (error) {
+    if ((error as any).code === "23505") {
+      throw new Error("Book is already in library.");
+    }
+
     console.error("Error adding book to library:", error);
     throw new Error("Failed to add book to library.");
   }

@@ -26,6 +26,7 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
   const [currentPage, setCurrentPage] = useState("");
   const [open, setOpen] = useState(false);
   const { data: session, isPending, error } = useSession();
+  const userName = session?.user?.name || "Default User";
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -129,10 +130,10 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
                 icon: (
                   <Image
                     src={
-                      session?.user.image ||
-                      `https://ui-avatars.com/api/?name=${
-                        session && session?.user.name.split(" ").join("+")
-                      }`
+                      session?.user?.image ||
+                      `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                        userName.split(" ").join("+")
+                      )}`
                     }
                     className="h-7 w-7 flex-shrink-0 rounded-full"
                     width={50}
