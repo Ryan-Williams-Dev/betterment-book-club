@@ -70,11 +70,11 @@ const LibraryPage: React.FC = () => {
                 <BookPreviewBlock book={book} />
               </CardContent>
 
-              <CardFooter className="flex justify-between gap-2">
+              <CardFooter className="flex justify-between gap-2 flex-wrap">
                 <Button className="flex-1 w-full">Mark as Reading</Button>
                 <Button
                   className="flex-1 w-full"
-                  variant="destructive"
+                  variant="outline"
                   onClick={() => {
                     const isbn = book.volumeInfo.industryIdentifiers.find(
                       (identifier) => identifier.type === "ISBN_13"
