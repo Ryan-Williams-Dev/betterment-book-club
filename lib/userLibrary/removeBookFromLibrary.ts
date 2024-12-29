@@ -2,7 +2,7 @@ import { db } from "@/db";
 import { userLibrary } from "@/db/schema";
 import { eq, and } from "drizzle-orm";
 
-export const removeBookFromLibrary = async (userId: string, isbn: string) => {
+const removeBookFromLibrary = async (userId: string, isbn: string) => {
   try {
     const result = await db
       .delete(userLibrary)
@@ -15,3 +15,5 @@ export const removeBookFromLibrary = async (userId: string, isbn: string) => {
     throw new Error("Failed to remove book from library.");
   }
 };
+
+export default removeBookFromLibrary;

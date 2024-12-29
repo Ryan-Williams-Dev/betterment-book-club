@@ -1,5 +1,3 @@
-// I want to create a book card component that is reusable across the application. The component should start with an optional prop that will display a title at the top. Next will be the book preview block, this is not optional and will accept a book object. Next will be an optional progress bar, showing both a bar as a percentage completion and the page number out of the total pages. Next will be required footer block, which will show always two buttons, one with a call to action key that will be one of: "Mark as Reading", "Remove from Library", "Add to Library", "Mark as Read", "Add progress". The other button will be a secondary action, more info on the book, or take to book discussion hub.
-
 import {
   Card,
   CardHeader,
@@ -12,8 +10,10 @@ import BookPreviewBlock from "@/components/BookPreviewBlock";
 import { Progress } from "@/components/ui/progress";
 import { TypographyMuted } from "@/components/typography";
 import { Button } from "@/components/ui/button";
+import BookInfoDialog from "./BookInfoDialog";
 
 interface BookCardProps {
+  userId: string;
   book: Book;
   title?: string;
   currentPage?: number;
@@ -23,10 +23,11 @@ interface BookCardProps {
     | "Add to Library"
     | "Mark as Read"
     | "Add progress";
-  secondaryAction: string;
+  secondaryAction: "More Details";
 }
 
 function BookCard({
+  userId,
   book,
   title,
   currentPage,
@@ -36,8 +37,36 @@ function BookCard({
   const progressPercent = currentPage
     ? Math.round((currentPage / book.volumeInfo.pageCount) * 100)
     : null;
+
+  const handlePrimaryAction = async () => {
+    switch (primaryAction) {
+      case "Mark as Reading":
+        // Implement the logic for marking the book as reading
+        console.log("Marking as reading");
+        break;
+      case "Remove from Library":
+        // Implement the logic for removing the book from the library
+        console.log("Removing from library");
+        break;
+      case "Add to Library":
+        // Implement the logic for adding the book to the library
+        console.log("Adding to library");
+        break;
+      case "Mark as Read":
+        // Implement the logic for marking the book as read
+        console.log("Marking as read");
+        break;
+      case "Add progress":
+        // Implement the logic for adding progress to the book
+        console.log("Adding progress");
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
-    <Card key={book.id} className="min-w-[200px] min-h-24 pt-8 flex flex-col">
+    <Card key={book.id} className="min-w-[200px] min-h-24">
       {title && <CardHeader>{<CardTitle>{title}</CardTitle>}</CardHeader>}
       <CardContent>
         <BookPreviewBlock book={book} />
@@ -59,10 +88,19 @@ function BookCard({
         )}
       </CardContent>
       <CardFooter className="flex flex-row justify-between gap-4">
-        <Button className="w-full">{primaryAction}</Button>
-        <Button variant="outline" className="w-full">
-          {secondaryAction}{" "}
+        <Button className="w-full" onClick={handlePrimaryAction}>
+          {primaryAction}
         </Button>
+        {secondaryAction === "More Details" && (
+          <BookInfoDialog
+            book={book}
+            triggerButton={
+              <Button variant="outline" className="w-full">
+                More Details
+              </Button>
+            }
+          />
+        )}
       </CardFooter>
     </Card>
   );

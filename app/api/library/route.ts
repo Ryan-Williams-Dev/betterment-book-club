@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { addBookToLibrary } from "@/lib/addBookToLibrary";
-import { getLibraryBooks } from "@/lib/getLibraryBooks";
-import { removeBookFromLibrary } from "@/lib/removeBookFromLibrary";
+import {
+  addBookToLibrary,
+  getLibraryBooks,
+  removeBookFromLibrary,
+} from "@/lib/userLibrary";
 
 export async function POST(req: NextRequest) {
   const { userId, isbn } = await req.json();

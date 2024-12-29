@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import BookCard from "@/components/BookCard";
 import { useEffect, useState } from "react";
 import { Book } from "@/types/book";
 import LastReadCard from "@/components/dashboard/LastReadCard";
@@ -77,14 +78,14 @@ const DashboardPage = () => {
           lastRead && (
             <>
               <LastReadCard book={lastRead} pageNumber={100} />
-              <Card className={cardStyling}>
-                <CardHeader>
-                  <CardTitle>Last read</CardTitle>
-                </CardHeader>
-                <CardFooter>
-                  <Button>Log reading</Button>
-                </CardFooter>
-              </Card>
+              <BookCard
+                userId={session?.user.id}
+                title="Last read"
+                book={lastRead}
+                primaryAction="Mark as Reading"
+                secondaryAction="More Details"
+                currentPage={100}
+              />
               <Card className={cardStyling}>
                 <CardHeader>
                   <CardTitle>Last read</CardTitle>

@@ -2,7 +2,7 @@ import { db } from "@/db";
 import { userLibrary } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
-export const getLibraryBooks = async (userId: string) => {
+const getLibraryBooks = async (userId: string) => {
   let isbnList = [];
 
   try {
@@ -26,6 +26,8 @@ export const getLibraryBooks = async (userId: string) => {
 
   return fetchedBooks;
 };
+
+export default getLibraryBooks;
 
 async function fetchBooksByIsbn(isbnList: string[], apiKey: string) {
   const baseUrl = "https://www.googleapis.com/books/v1/volumes";
