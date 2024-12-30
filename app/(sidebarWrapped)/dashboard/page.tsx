@@ -1,18 +1,10 @@
 "use client";
 import { TypographyH1, TypographyH2 } from "@/components/typography";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import BookCard from "@/components/BookCard";
 import { useEffect, useState } from "react";
 import { Book } from "@/types/book";
-import LastReadCard from "@/components/dashboard/LastReadCard";
-import { Skeleton } from "@/components/ui/skeleton";
 import SkeletonBookCard from "@/components/SkeletonBookCard";
 import { useSession } from "@/lib/auth-client";
 
@@ -77,7 +69,6 @@ const DashboardPage = () => {
         ) : (
           lastRead && (
             <>
-              <LastReadCard book={lastRead} pageNumber={100} />
               <BookCard
                 userId={session?.user.id}
                 title="Last read"
@@ -86,14 +77,6 @@ const DashboardPage = () => {
                 secondaryAction="More Details"
                 currentPage={100}
               />
-              <Card className={cardStyling}>
-                <CardHeader>
-                  <CardTitle>Last read</CardTitle>
-                </CardHeader>
-                <CardFooter>
-                  <Button className="w-full">Log reading</Button>
-                </CardFooter>
-              </Card>
             </>
           )
         )}

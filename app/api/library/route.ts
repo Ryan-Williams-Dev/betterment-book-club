@@ -53,9 +53,7 @@ export async function PUT(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const userId = searchParams.get("userId");
-  const isbn = searchParams.get("isbn");
+  const { userId, isbn } = await req.json();
 
   if (!userId || !isbn) {
     return NextResponse.json(

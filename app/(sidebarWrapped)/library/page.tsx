@@ -1,20 +1,21 @@
 "use client";
 
+import BookCard from "@/components/BookCard";
 import BookPreviewBlock from "@/components/BookPreviewBlock";
 import { TypographyH1, TypographyLarge } from "@/components/typography";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { useSession } from "@/lib/auth-client";
 import { Book } from "@/types/book";
-import React from "react";
+import { useEffect, useState } from "react";
 
 const LibraryPage: React.FC = () => {
-  const [loading, setLoading] = React.useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const { data: session, isPending, error } = useSession();
   const userId = session?.user?.id;
-  const [bookList, setBookList] = React.useState<Book[]>([]);
+  const [bookList, setBookList] = useState<Book[]>([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchLibraryBooks = async () => {
       const response = await fetch(`/api/library?userId=${userId}`);
       if (!response.ok) {
@@ -29,30 +30,11 @@ const LibraryPage: React.FC = () => {
     fetchLibraryBooks();
   }, [userId]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (bookList.length > 0) {
       setLoading(false);
     }
   }, [bookList]);
-
-  const handleRemoveBook = async (isbn: string) => {
-    const response = await fetch(`/api/library?userId=${userId}&isbn=${isbn}`, {
-      method: "DELETE",
-    });
-
-    if (!response.ok) {
-      console.error("Failed to remove book from library:", response.statusText);
-      return;
-    }
-
-    const updatedBookList = bookList.filter(
-      (book) =>
-        !book.volumeInfo.industryIdentifiers.some(
-          (identifier) => identifier.identifier === isbn
-        )
-    );
-    setBookList(updatedBookList);
-  };
 
   return (
     <div className="p-8 w-full max-w-7xl mx-auto">
@@ -62,32 +44,13 @@ const LibraryPage: React.FC = () => {
       {!loading && (
         <ul className="grid grid-cols-[repeat(auto-fit,minmax(310px,1fr))] gap-4">
           {bookList.map((book) => (
-            <Card
+            <BookCard
               key={book.id}
-              className="min-w-[200px] min-h-24 pt-8 flex flex-col"
-            >
-              <CardContent>
-                <BookPreviewBlock book={book} />
-              </CardContent>
-
-              <CardFooter className="flex justify-between gap-2 flex-wrap">
-                <Button className="flex-1 w-full">Mark as Reading</Button>
-                <Button
-                  className="flex-1 w-full"
-                  variant="outline"
-                  onClick={() => {
-                    const isbn = book.volumeInfo.industryIdentifiers.find(
-                      (identifier) => identifier.type === "ISBN_13"
-                    )?.identifier;
-                    if (isbn) {
-                      handleRemoveBook(isbn);
-                    }
-                  }}
-                >
-                  Remove from Library
-                </Button>
-              </CardFooter>
-            </Card>
+              userId={userId}
+              book={book}
+              primaryAction="Add progress"
+              secondaryAction="Remove from Library"
+            />
           ))}
         </ul>
       )}
