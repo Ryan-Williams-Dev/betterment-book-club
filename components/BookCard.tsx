@@ -75,9 +75,12 @@ function BookCard({
   };
 
   return (
-    <Card key={book.id} className="min-w-[200px] min-h-24">
+    <Card
+      key={book.id}
+      className="min-w-[200px] min-h-24 flex flex-col justify-between"
+    >
       {title && <CardHeader>{<CardTitle>{title}</CardTitle>}</CardHeader>}
-      <CardContent className={title ? undefined : "pt-6"}>
+      <CardContent className={title ? undefined : "pt-6 flex-grow"}>
         <BookPreviewBlock book={book} />
         {progressPercent && (
           <div className="mt-4">
