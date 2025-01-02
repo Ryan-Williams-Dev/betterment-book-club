@@ -8,7 +8,7 @@ import {
 import { Book } from "@/types/book";
 import BookPreviewBlock from "@/components/BookPreviewBlock";
 import { Progress } from "@/components/ui/progress";
-import { TypographyMuted } from "@/components/typography";
+import { TypographyMuted, TypographySmall } from "@/components/typography";
 import { Button } from "@/components/ui/button";
 import BookInfoDialog from "./BookInfoDialog";
 import { useToast } from "@/hooks/use-toast";
@@ -19,10 +19,12 @@ interface BookCardProps {
   book: Book;
   title?: string;
   currentPage?: number;
+  isReading?: boolean;
+  isFinished?: boolean;
   primaryAction:
-    | "Mark as Reading"
+    | "Mark as reading"
     | "Add to Library"
-    | "Mark as Read"
+    | "Mark as finished"
     | "Add progress";
   secondaryAction: "More Details" | "Remove from Library";
 }
@@ -32,6 +34,7 @@ function BookCard({
   book,
   title,
   currentPage,
+  isReading,
   primaryAction,
   secondaryAction,
 }: BookCardProps) {
@@ -42,17 +45,20 @@ function BookCard({
 
   const handlePrimaryAction = async () => {
     switch (primaryAction) {
-      case "Mark as Reading":
+      case "Mark as reading":
+        handleMarkAsReading(book, userId, toast);
         console.log("Marking as reading");
         break;
       case "Add to Library":
         handleAddToLibrary(book, userId, toast);
         console.log("Adding to library");
         break;
-      case "Mark as Read":
+      case "Mark as finished":
+        handleMarkAsFinished(book, userId, toast);
         console.log("Marking as read");
         break;
       case "Add progress":
+        handleAddProgress(book, userId, toast);
         console.log("Adding progress");
         break;
       default:
@@ -191,6 +197,42 @@ const handleRemoveFromLibrary = async (
       description: (await response.json()).error,
     });
   }
+};
+
+const handleMarkAsReading = async (book: Book, userId: string, toast: any) => {
+  // Implement marking as reading
+  const response = await fetch("/api/library", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      userId,
+      isbn: book.volumeInfo.industryIdentifiers.find(
+        (identifier) => identifier.type === "ISBN_13"
+      )?.identifier,
+      markAsReading: true,
+    }),
+  });
+
+  if (response.ok) {
+    toast({
+      title: "Book marked as reading",
+    });
+  } else {
+    toast({
+      title: "Error",
+      description: (await response.json()).error,
+    });
+  }
+};
+
+const handleAddProgress = async (book: Book, userId: string, toast: any) => {
+  // Implement adding progress
+};
+
+const handleMarkAsFinished = async (book: Book, userId: string, toast: any) => {
+  // Implement marking as finished
 };
 
 export default BookCard;

@@ -3,6 +3,7 @@ import {
   addBookToLibrary,
   getLibraryBooks,
   removeBookFromLibrary,
+  markBookAsReading,
 } from "@/lib/userLibrary";
 
 export async function POST(req: NextRequest) {
@@ -50,6 +51,27 @@ export async function GET(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
   // Implement PUT request handling
+  const { userId, isbn, markAsReading } = await req.json();
+
+  if (!userId || !isbn) {
+    return NextResponse.json(
+      { error: "Missing userId or isbn" },
+      { status: 400 }
+    );
+  }
+
+  if (markAsReading === true) {
+    try {
+      const result = await markBookAsReading(userId, isbn);
+      return NextResponse.json(result, { status: 200 });
+    } catch (error) {
+      console.error("Error marking book as reading:", error);
+      return NextResponse.json(
+        { error: (error as Error).message },
+        { status: 500 }
+      );
+    }
+  }
 }
 
 export async function DELETE(req: NextRequest) {

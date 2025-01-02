@@ -73,7 +73,7 @@ const DashboardPage = () => {
                 userId={session?.user.id}
                 title="Last read"
                 book={lastRead}
-                primaryAction="Mark as Reading"
+                primaryAction="Mark as reading"
                 secondaryAction="More Details"
                 currentPage={100}
               />

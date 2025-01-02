@@ -1,10 +1,7 @@
 "use client";
 
 import BookCard from "@/components/BookCard";
-import BookPreviewBlock from "@/components/BookPreviewBlock";
 import { TypographyH1, TypographyLarge } from "@/components/typography";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { useSession } from "@/lib/auth-client";
 import { Book } from "@/types/book";
 import { useEffect, useState } from "react";
@@ -48,7 +45,7 @@ const LibraryPage: React.FC = () => {
               key={book.id}
               userId={userId}
               book={book}
-              primaryAction="Add progress"
+              primaryAction="Mark as reading"
               secondaryAction="Remove from Library"
             />
           ))}
