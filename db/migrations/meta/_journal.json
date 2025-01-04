@@ -22,6 +22,13 @@
       "when": 1734113751431,
       "tag": "0002_messy_goblin_queen",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1736014122257,
+      "tag": "0003_chubby_ozymandias",
+      "breakpoints": true
     }
   ]
 }

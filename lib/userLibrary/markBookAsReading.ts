@@ -8,7 +8,7 @@ const markBookAsReading = async (userId: string, isbn: string) => {
   try {
     const result = await db
       .update(userLibrary)
-      .set({ isReading: true })
+      .set({ isReading: true, lastReadAt: new Date() })
       .where(and(eq(userLibrary.userId, userId), eq(userLibrary.isbn, isbn)))
       .execute();
 

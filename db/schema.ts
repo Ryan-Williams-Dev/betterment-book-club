@@ -64,6 +64,7 @@ export const userLibrary = pgTable(
     currentPage: integer("current_page").notNull().default(0),
     createdAt: timestamp("created_at").notNull().defaultNow(),
     updatedAt: timestamp("updated_at").notNull().defaultNow(),
+    lastReadAt: timestamp("last_read_at"),
   },
   (table) => {
     return {

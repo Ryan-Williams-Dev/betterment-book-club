@@ -45,7 +45,7 @@ const LibraryPage: React.FC = () => {
               key={book.id}
               userId={userId}
               book={book}
-              primaryAction="Mark as reading"
+              primaryAction={"Mark as reading"}
               secondaryAction="Remove from Library"
             />
           ))}
