@@ -29,6 +29,7 @@ const getLibraryBooks = async (userId: string) => {
 
 export default getLibraryBooks;
 
+// Remove this from route, seperate function util. Change return of above function to return the user library information, then fetch withing component
 async function fetchBooksByIsbn(isbnList: string[], apiKey: string) {
   const baseUrl = "https://www.googleapis.com/books/v1/volumes";
   const books = [];
