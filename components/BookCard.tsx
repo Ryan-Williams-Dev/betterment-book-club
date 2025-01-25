@@ -38,9 +38,10 @@ function BookCard({
   primaryAction,
   secondaryAction,
 }: BookCardProps) {
-  const progressPercent = currentPage
-    ? Math.round((currentPage / book.volumeInfo.pageCount) * 100)
-    : null;
+  const progressPercent =
+    isReading && currentPage
+      ? Math.round((currentPage / book.volumeInfo.pageCount) * 100)
+      : null;
   const { toast } = useToast();
 
   const handlePrimaryAction = async () => {
