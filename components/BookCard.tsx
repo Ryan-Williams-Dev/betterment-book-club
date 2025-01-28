@@ -81,6 +81,8 @@ function BookCard({
     }
   };
 
+  // console.log(isReading, currentPage);
+
   return (
     <Card
       key={book.id}
@@ -89,7 +91,7 @@ function BookCard({
       {title && <CardHeader>{<CardTitle>{title}</CardTitle>}</CardHeader>}
       <CardContent className={title ? undefined : "pt-6 flex-grow"}>
         <BookPreviewBlock book={book} />
-        {progressPercent && (
+        {progressPercent !== null && (
           <div className="mt-4">
             <div className="flex flex-row w-full space-between">
               <span className="flex-1">

@@ -50,7 +50,7 @@ const LibraryPage: React.FC = () => {
     }
   }, [bookList]);
 
-  console.log(userLibrary);
+  // console.log(userLibrary);
 
   return (
     <div className="p-8 w-full max-w-7xl mx-auto">
@@ -59,28 +59,16 @@ const LibraryPage: React.FC = () => {
       {loading && <TypographyLarge>Loading...</TypographyLarge>}
       {!loading && (
         <ul className="grid grid-cols-[repeat(auto-fit,minmax(310px,1fr))] gap-4">
-          {bookList.map((book) => (
+          {bookList.map((book, idx) => (
             <BookCard
               key={book.id}
               userId={userId}
               book={book}
               primaryAction={"Mark as reading"}
               secondaryAction="Remove from Library"
-              isReading={
-                userLibrary.find(
-                  (libraryBook: any) => libraryBook.isbn === book.id
-                )?.isReading
-              }
-              isFinished={
-                userLibrary.find(
-                  (libraryBook: any) => libraryBook.isbn === book.id
-                )?.isFinished
-              }
-              currentPage={
-                userLibrary.find(
-                  (libraryBook: any) => libraryBook.isbn === book.id
-                )?.currentPage
-              }
+              isReading={userLibrary[idx]?.isReading}
+              isFinished={userLibrary[idx]?.isFinished}
+              currentPage={userLibrary[idx]?.currentPage}
             />
           ))}
         </ul>
