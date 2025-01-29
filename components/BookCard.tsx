@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import BookInfoDialog from "./BookInfoDialog";
 import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "./ui/toast";
+import Link from "next/link";
 
 interface BookCardProps {
   userId: string;
@@ -136,18 +137,16 @@ function BookCard({
           </Button>
         )}
       </CardFooter>
-      <Button
-        className="mx-6 mb-6"
-        onClick={() => {
-          const isbn = book.volumeInfo.industryIdentifiers.find(
-            (identifier) => identifier.type === "ISBN_13"
-          )?.identifier;
-          if (isbn) {
-            window.location.href = `/community/${isbn}`;
-          }
-        }}
-      >
-        View Book Threads
+      <Button className="mx-6 mb-6">
+        <Link
+          href={`/community/${
+            book.volumeInfo.industryIdentifiers.find(
+              (identifier) => identifier.type === "ISBN_13"
+            )?.identifier
+          }`}
+        >
+          View Threads
+        </Link>
       </Button>
     </Card>
   );
