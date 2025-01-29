@@ -64,7 +64,9 @@ const LibraryPage: React.FC = () => {
               key={book.id}
               userId={userId}
               book={book}
-              primaryAction={"Mark as reading"}
+              primaryAction={
+                userLibrary[idx]?.isReading ? "Add progress" : "Mark as reading"
+              }
               secondaryAction="Remove from Library"
               isReading={userLibrary[idx]?.isReading}
               isFinished={userLibrary[idx]?.isFinished}

@@ -83,6 +83,10 @@ function BookCard({
 
   // console.log(isReading, currentPage);
 
+  const visitBookHub = () => {
+    // Implement visiting book hub
+  };
+
   return (
     <Card
       key={book.id}
@@ -132,6 +136,19 @@ function BookCard({
           </Button>
         )}
       </CardFooter>
+      <Button
+        className="mx-6 mb-6"
+        onClick={() => {
+          const isbn = book.volumeInfo.industryIdentifiers.find(
+            (identifier) => identifier.type === "ISBN_13"
+          )?.identifier;
+          if (isbn) {
+            window.location.href = `/community/${isbn}`;
+          }
+        }}
+      >
+        View Book Threads
+      </Button>
     </Card>
   );
 }
