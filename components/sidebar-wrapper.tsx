@@ -59,19 +59,19 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
     },
     {
       label: "Community",
-      href: "#",
+      href: "/community",
       icon: <MessageSquare className={iconStyles} />,
       keyboardShortcut: "C",
     },
     {
       label: "Groups",
-      href: "#",
+      href: "/groups",
       icon: <Users className={iconStyles} />,
       keyboardShortcut: "G",
     },
     {
       label: "Settings",
-      href: "#",
+      href: "/settings",
       icon: <Settings className={iconStyles} />,
       keyboardShortcut: "S",
     },

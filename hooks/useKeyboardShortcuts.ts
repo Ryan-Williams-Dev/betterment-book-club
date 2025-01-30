@@ -42,6 +42,16 @@ const useKeyboardShortcuts = ({
         router.push("/library");
         setCurrentPage("/library");
       }
+
+      if (
+        (event.metaKey || event.ctrlKey) &&
+        event.shiftKey &&
+        event.key === "c"
+      ) {
+        event.preventDefault();
+        router.push("/community");
+        setCurrentPage("/community");
+      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
