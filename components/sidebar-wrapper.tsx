@@ -1,6 +1,12 @@
 "use client";
 
-import React, { ReactNode, useEffect, useState } from "react";
+import React, {
+  ReactNode,
+  useEffect,
+  useState,
+  useContext,
+  createContext,
+} from "react";
 
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 import Link from "next/link";
@@ -19,8 +25,18 @@ import {
 import { ModeToggle } from "./ui/mode-toggle";
 import { signOut, useSession } from "@/lib/auth-client";
 import useKeyboardShortcuts from "@/hooks/useKeyboardShortcuts";
+import { set } from "zod";
 
 type SidebarWrapperProps = { children: ReactNode };
+
+const PageContext = createContext({
+  currentPage: "",
+  setCurrentPage: (page: string) => {},
+});
+
+export const usePageContext = () => {
+  return useContext(PageContext);
+};
 
 const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
   const [currentPage, setCurrentPage] = useState("");
@@ -32,7 +48,7 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
     if (typeof window !== "undefined") {
       setCurrentPage(window.location.pathname);
     }
-  }, []);
+  }, [setCurrentPage]);
 
   useKeyboardShortcuts({ setCurrentPage });
 
@@ -87,78 +103,80 @@ const SidebarWrapper = ({ children }: SidebarWrapperProps) => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row max-w-screen flex-1 overflow-hidden h-screen bg-neutral-100 dark:bg-neutral-900">
-      <Sidebar open={open} setOpen={setOpen}>
-        <SidebarBody className="justify-between gap-10">
-          <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-            {open ? <Logo /> : <LogoIcon />}
-            <div className="mt-8 flex flex-col gap-2">
-              {links.map((link, idx) => (
+    <PageContext.Provider value={{ currentPage, setCurrentPage }}>
+      <div className="flex flex-col md:flex-row max-w-screen flex-1 overflow-hidden h-screen bg-neutral-100 dark:bg-neutral-900">
+        <Sidebar open={open} setOpen={setOpen}>
+          <SidebarBody className="justify-between gap-10">
+            <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+              {open ? <Logo /> : <LogoIcon />}
+              <div className="mt-8 flex flex-col gap-2">
+                {links.map((link, idx) => (
+                  <SidebarLink
+                    key={idx}
+                    link={link}
+                    onClick={() => handleLinkClick(link.href)}
+                    isCurrentPage={currentPage === link.href}
+                  />
+                ))}
                 <SidebarLink
-                  key={idx}
-                  link={link}
-                  onClick={() => handleLinkClick(link.href)}
-                  isCurrentPage={currentPage === link.href}
+                  link={{
+                    label: "Logout",
+                    href: "/sign-in",
+                    icon: <LogOutIcon className={iconStyles} />,
+                    keyboardShortcut: "L",
+                  }}
+                  onClick={async () => {
+                    await signOut({
+                      fetchOptions: {
+                        onSuccess: () => {
+                          window.location.assign("/sign-in");
+                        },
+                      },
+                    });
+                  }}
                 />
-              ))}
+              </div>
+            </div>
+            <div
+              className={`flex flex-row items-center w-full justify-between gap-2`}
+            >
               <SidebarLink
                 link={{
-                  label: "Logout",
-                  href: "/sign-in",
-                  icon: <LogOutIcon className={iconStyles} />,
-                  keyboardShortcut: "L",
-                }}
-                onClick={async () => {
-                  await signOut({
-                    fetchOptions: {
-                      onSuccess: () => {
-                        window.location.assign("/sign-in");
-                      },
-                    },
-                  });
+                  label: session?.user.name || "Profile",
+                  href: "#",
+                  icon: (
+                    <Image
+                      src={
+                        session?.user?.image ||
+                        `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                          userName.split(" ").join("+")
+                        )}`
+                      }
+                      className="h-7 w-7 flex-shrink-0 rounded-full"
+                      width={50}
+                      height={50}
+                      alt="Avatar"
+                    />
+                  ),
                 }}
               />
+              {open && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <ModeToggle />
+                </motion.div>
+              )}
             </div>
-          </div>
-          <div
-            className={`flex flex-row items-center w-full justify-between gap-2`}
-          >
-            <SidebarLink
-              link={{
-                label: session?.user.name || "Profile",
-                href: "#",
-                icon: (
-                  <Image
-                    src={
-                      session?.user?.image ||
-                      `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                        userName.split(" ").join("+")
-                      )}`
-                    }
-                    className="h-7 w-7 flex-shrink-0 rounded-full"
-                    width={50}
-                    height={50}
-                    alt="Avatar"
-                  />
-                ),
-              }}
-            />
-            {open && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-              >
-                <ModeToggle />
-              </motion.div>
-            )}
-          </div>
-        </SidebarBody>
-      </Sidebar>
-      <div className="flex flex-1 overflow-y-auto rounded-tl-2xl border-t border-l border-neutral-200 dark:border-neutral-700 bg-background">
-        {children}
+          </SidebarBody>
+        </Sidebar>
+        <div className="flex flex-1 overflow-y-auto rounded-tl-2xl border-t border-l border-neutral-200 dark:border-neutral-700 bg-background">
+          {children}
+        </div>
       </div>
-    </div>
+    </PageContext.Provider>
   );
 };
 

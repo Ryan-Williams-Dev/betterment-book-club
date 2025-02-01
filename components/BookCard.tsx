@@ -14,6 +14,7 @@ import BookInfoDialog from "./BookInfoDialog";
 import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "./ui/toast";
 import Link from "next/link";
+import { usePageContext } from "@/components/sidebar-wrapper";
 
 interface BookCardProps {
   userId: string;
@@ -44,6 +45,7 @@ function BookCard({
       ? Math.round((currentPage / book.volumeInfo.pageCount) * 100)
       : null;
   const { toast } = useToast();
+  const { setCurrentPage } = usePageContext();
 
   const handlePrimaryAction = async () => {
     switch (primaryAction) {
@@ -138,15 +140,17 @@ function BookCard({
         )}
       </CardFooter>
       <Button className="mx-6 mb-6">
-        <Link
-          href={`/community/${
-            book.volumeInfo.industryIdentifiers.find(
-              (identifier) => identifier.type === "ISBN_13"
-            )?.identifier
-          }`}
-        >
-          View Threads
-        </Link>
+        <div onClick={() => setCurrentPage("/community")}>
+          <Link
+            href={`/community/${
+              book.volumeInfo.industryIdentifiers.find(
+                (identifier) => identifier.type === "ISBN_13"
+              )?.identifier
+            }`}
+          >
+            View Threads
+          </Link>
+        </div>
       </Button>
     </Card>
   );
