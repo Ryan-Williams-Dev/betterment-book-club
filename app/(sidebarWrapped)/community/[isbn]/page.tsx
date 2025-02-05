@@ -1,26 +1,13 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Book } from "@/types/book";
 import fetchBooksByIsbn from "@/utils/fetchBooksByIsbn";
-import { TypographyMuted, TypographyP } from "@/components/typography";
-import {
-  ThumbsUp,
-  Bookmark,
-  MessageSquareReply,
-  MessageCircle,
-  Share,
-} from "lucide-react";
+
+import ThreadPreview from "@/components/ThreadPreview";
 
 export default function BookCommunityPage() {
   const { isbn } = useParams();
@@ -75,47 +62,7 @@ export default function BookCommunityPage() {
         <p className="text-gray-500">No discussions yet. Start one!</p>
       ) : (
         threads.map((thread) => (
-          <Card key={thread.id} className="mb-4">
-            <CardHeader>
-              <CardTitle>{thread.title}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-700">
-                {thread.content.length < 100
-                  ? thread.content
-                  : `${thread.content.substring(0, 70).trimEnd()}...`}
-              </p>
-              <div className="mt-1"></div>
-            </CardContent>
-            <CardFooter>
-              <div className="flex flex-row gap-2 justify-between w-full">
-                <div className="flex flex-row gap-2">
-                  <Button variant="outline">
-                    <MessageCircle />
-                    <span className="ml-1">
-                      {Math.floor(Math.random() * 100)}
-                    </span>
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className={Math.random() < 0.5 ? "text-yellow-500" : ""}
-                  >
-                    <ThumbsUp />
-                  </Button>
-
-                  <Button variant="outline">
-                    <Bookmark />
-                  </Button>
-                </div>
-
-                <div className="flex flex-row gap-2">
-                  <Button variant="outline">
-                    <Share />
-                  </Button>
-                </div>
-              </div>
-            </CardFooter>
-          </Card>
+          <ThreadPreview key={thread.id} thread={thread} />
         ))
       )}
       <Button className="mt-4 w-full">Start a New Discussion</Button>
