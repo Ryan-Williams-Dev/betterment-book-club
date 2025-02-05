@@ -25,7 +25,6 @@ import {
 import { ModeToggle } from "./ui/mode-toggle";
 import { signOut, useSession } from "@/lib/auth-client";
 import useKeyboardShortcuts from "@/hooks/useKeyboardShortcuts";
-import { set } from "zod";
 
 type SidebarWrapperProps = { children: ReactNode };
 
