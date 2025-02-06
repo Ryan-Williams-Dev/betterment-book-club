@@ -7,6 +7,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { TypographyP, TypographyMuted } from "@/components/typography";
 import { MessageCircle, ThumbsUp, Bookmark, Share } from "lucide-react";
 
 interface ThreadPreviewProps {
@@ -38,12 +39,11 @@ const ThreadPreview = ({ thread }: ThreadPreviewProps) => {
         <CardTitle>{thread.title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="text-gray-700">
+        <TypographyP>
           {thread.content.length < 100
             ? thread.content
-            : `${thread.content.substring(0, 70).trimEnd()}...`}
-        </p>
-        <div className="mt-1"></div>
+            : `${thread.content.substring(0, 100).trimEnd()}...`}
+        </TypographyP>
       </CardContent>
       <CardFooter>
         <div className="flex flex-row gap-2 justify-between w-full">
