@@ -71,6 +71,7 @@ const LibraryPage: React.FC = () => {
               isReading={userLibrary[idx]?.isReading}
               isFinished={userLibrary[idx]?.isFinished}
               currentPage={userLibrary[idx]?.currentPage}
+              inLibrary
             />
           ))}
         </ul>

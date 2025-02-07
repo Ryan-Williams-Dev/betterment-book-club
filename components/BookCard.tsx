@@ -8,13 +8,22 @@ import {
 import { Book } from "@/types/book";
 import BookPreviewBlock from "@/components/BookPreviewBlock";
 import { Progress } from "@/components/ui/progress";
-import { TypographyMuted, TypographySmall } from "@/components/typography";
+import { TypographyMuted } from "@/components/typography";
 import { Button } from "@/components/ui/button";
 import BookInfoDialog from "./BookInfoDialog";
 import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "./ui/toast";
 import Link from "next/link";
 import { usePageContext } from "@/components/sidebar-wrapper";
+import { BookCheck, BookMinus, EllipsisVertical, Info } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuItem,
+} from "./ui/dropdown-menu";
 
 interface BookCardProps {
   userId: string;
@@ -23,6 +32,7 @@ interface BookCardProps {
   currentPage?: number;
   isReading?: boolean;
   isFinished?: boolean;
+  inLibrary?: boolean;
   primaryAction:
     | "Mark as reading"
     | "Add to Library"
@@ -37,6 +47,7 @@ function BookCard({
   title,
   currentPage,
   isReading,
+  inLibrary = false,
   primaryAction,
   secondaryAction,
 }: BookCardProps) {
@@ -84,12 +95,6 @@ function BookCard({
     }
   };
 
-  // console.log(isReading, currentPage);
-
-  const visitBookHub = () => {
-    // Implement visiting book hub
-  };
-
   return (
     <Card
       key={book.id}
@@ -116,9 +121,16 @@ function BookCard({
         )}
       </CardContent>
       <CardFooter className="flex flex-row justify-between gap-4">
-        <Button className="w-full" onClick={handlePrimaryAction}>
-          {primaryAction}
-        </Button>
+        {/* <Button onClick={handlePrimaryAction}>{primaryAction}</Button> */}
+        {inLibrary ? (
+          isReading ? (
+            <Button>Add Progress</Button>
+          ) : (
+            <Button>Mark as Reading</Button>
+          )
+        ) : (
+          <Button>Add to Library</Button>
+        )}
         {secondaryAction === "More Details" && (
           <BookInfoDialog
             book={book}
@@ -129,15 +141,28 @@ function BookCard({
             }
           />
         )}
-        {secondaryAction === "Remove from Library" && (
-          <Button
-            variant="outline"
-            className="w-full"
-            onClick={handleSecondaryAction}
-          >
-            Remove from Library
-          </Button>
-        )}
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <Button variant="outline" className="px-2">
+              <EllipsisVertical />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem>
+              <BookCheck />
+              <span className="ml-2">Mark As Finished</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Info />
+              <span className="ml-2">Book Details</span>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>
+              <BookMinus />
+              <span className="ml-2">Remove From Library</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </CardFooter>
       <Button className="mx-6 mb-6">
         <div onClick={() => setCurrentPage("/community")}>
